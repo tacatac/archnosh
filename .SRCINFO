@@ -1,0 +1,131 @@
+pkgbase = nosh
+	pkgdesc = A suite of system-level utilities for initializing and running a BSD or Linux system, for managing daemons, for managing terminals, and for managing logging.
+	pkgver = 1.33
+	pkgrel = 1
+	url = https://jdebp.eu/Softwares/nosh/index.html
+	arch = x86_64
+	license = custom:MIT Expat
+	license = custom:FreeBSD
+	license = custom:ISC
+	license = custom:Simplified BSD
+	makedepends = pax
+	makedepends = docbook-xml
+	makedepends = docbook-xsl
+	makedepends = xmlto
+	makedepends = libtinfo
+	makedepends = redo-jdebp
+	source = https://jdebp.eu/Repository/freebsd/nosh-1.33.tar.gz
+	source = nosh-staging-1.33.patch
+	source = maintenance.sh
+	source = scriptletbuilder.sh
+	source = nosh-run-udev.post_install.extra
+	source = nosh-bundles.install
+	source = nosh-run-klog.install
+	source = nosh-run-user-vt.install
+	source = nosh-run-local-syslog.install
+	source = nosh-run-via-systemd.install
+	source = nosh-run-busybox-mdev.install
+	source = nosh-run-openssh-server.install
+	source = nosh-run-via-systemd.install
+	source = nosh-run-freedesktop-kits.install
+	source = nosh-run-suckless-mdev.install
+	source = nosh-run-freedesktop-system-bus.install
+	source = nosh-run-system-manager.install
+	source = nosh-run-virtualbox-guest.install
+	source = nosh-run-kernel-vt.install
+	source = nosh-run-udev.install
+	source = nosh-run-debian-server-base.install
+	source = nosh-run-debian-desktop-base.install
+	source = nosh-run-openssh-server.install
+	sha256sums = 4e57426fb4eb3171400fe735c0e28f0264a7cb61b5626071a8e00738e5eeaa8a
+	sha256sums = 87ad51a0d21fdadf12daa23309559a2599bd3ab5d658582dd73dc54388452251
+	sha256sums = 8d2e87fabd5b8597140ec53721be97d74adf44e89fbef45f9a4c295becaf5a00
+	sha256sums = d2ee01d6d41caa8015eb74eb37525de3d45c5bb071c8785fe245884aa19f20ac
+	sha256sums = f90975c663794c7e87be157e03cdfa9bd835c212200539367e848fbbf9fe6cc9
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+
+pkgname = nosh-common
+
+pkgname = nosh-guide
+
+pkgname = nosh-zsh-completion
+
+pkgname = nosh-exec
+
+pkgname = nosh-execline-shims
+
+pkgname = nosh-core-shims
+
+pkgname = nosh-service-management
+
+pkgname = nosh-terminal-management
+
+pkgname = nosh-run-system-manager
+
+pkgname = nosh-ucspi-tcp-shims
+
+pkgname = nosh-terminal-extras
+
+pkgname = nosh-systemd-shims
+
+pkgname = nosh-systemv-shims
+
+pkgname = nosh-upstart-shims
+
+pkgname = nosh-debian-shims
+
+pkgname = nosh-openbsd-shims
+
+pkgname = nosh-bsd-shims
+
+pkgname = nosh-kbd-shims
+
+pkgname = nosh-bundles
+
+pkgname = nosh-run-via-systemd
+
+pkgname = nosh-run-kernel-vt
+
+pkgname = nosh-run-udev
+
+pkgname = nosh-run-busybox-mdev
+
+pkgname = nosh-run-suckless-mdev
+
+pkgname = nosh-run-vdev
+
+pkgname = nosh-run-user-vt
+
+pkgname = nosh-run-freedesktop-system-bus
+
+pkgname = nosh-run-freedesktop-kits
+
+pkgname = nosh-run-virtualbox-guest
+
+pkgname = nosh-run-klog
+
+pkgname = nosh-run-local-syslog
+
+pkgname = nosh-run-debian-server-base
+
+pkgname = nosh-run-debian-desktop-base
+
+pkgname = nosh-run-openssh-server
+

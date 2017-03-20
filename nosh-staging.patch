@@ -1,0 +1,59 @@
+--- package/stage	2017-02-25 09:18:34.000000000 +0100
++++ package.patched/stage	2017-03-10 16:51:28.653719213 +0100
+@@ -19,15 +19,15 @@
+ # distributor patchable stuff
+ 
+ # Eventually, these will be /usr .
+-binprefix="/usr/local"
+-libprefix="/usr/local"
++binprefix="/usr"
++libprefix="/usr"
+ # Eventually, these will be /usr/share .
+-manprefix="/usr/local"
+-docprefix="/usr/local/share"
++manprefix="/usr/share"
++docprefix="/usr/share"
+ # Eventually, this will be / .
+-etcprefix="/usr/local"
++etcprefix="/"
+ # Eventually, this will be /usr/share .
+-prsprefix="/usr/local/etc"
++prsprefix="/usr/share"
+ 
+ # Set this to blank or unset it if /usr/{s,}bin and /{s,}bin are identical.
+ case "`uname`" in
+@@ -67,12 +67,12 @@
+ 
+ 	if test -s package/nosh-"$i".commands8 || test -s package/nosh-"$i".aliases8 ;
+ 	then
+-		install -d -m 0755 "${dest}"/nosh-"${i}"/"${binprefix}"/sbin 
++		install -d -m 0755 "${dest}"/nosh-"${i}"/"${binprefix}"/bin 
+ 		install -d -m 0755 "${dest}"/nosh-"${i}"/"${manprefix}"/man/man8 
+ 	fi
+ 	while read j ;
+ 	do
+-		ln -f -- "${src}"/command/"$j" "${dest}"/nosh-"${i}"/"${binprefix}"/sbin/ 
++		ln -f -- "${src}"/command/"$j" "${dest}"/nosh-"${i}"/"${binprefix}"/bin/ 
+ 		ln -f -- "${src}"/manual/"$j".8 "${dest}"/nosh-"${i}"/"${manprefix}"/man/man8/ 
+ 	done < package/nosh-"$i".commands8 ;
+ 
+@@ -84,7 +84,7 @@
+ 
+ 	while read c a ;
+ 	do
+-		ln -f -s "$c" "${dest}"/nosh-"${i}"/"${binprefix}"/sbin/"$a" 
++		ln -f -s "$c" "${dest}"/nosh-"${i}"/"${binprefix}"/bin/"$a" 
+ 		ln -f -s "$c".8 "${dest}"/nosh-"${i}"/"${manprefix}"/man/man8/"$a".8 
+ 	done < package/nosh-"$i".aliases8 ;
+ done
+@@ -115,8 +115,8 @@
+ install -d -m 0755 "${dest}"/nosh-run-system-manager/
+ case "`uname`" in
+ Linux)	
+-	install -d -m 0755 "${dest}"/nosh-run-system-manager/sbin 
+-	ln -f -s system-manager "${dest}"/nosh-run-system-manager/sbin/init
++	install -d -m 0755 "${dest}"/nosh-run-system-manager/usr/bin 
++	ln -f -s system-manager "${dest}"/nosh-run-system-manager/usr/bin/init
+ 	;;
+ *BSD)	;;
+ esac
