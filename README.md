@@ -117,7 +117,7 @@ Various shim packages exist to provide the following:
 
 ##### troubleshooting
 
-https://jdebp.eu/Softwares/nosh/guide/troubleshooting.html
+[https://jdebp.eu/Softwares/nosh/guide/troubleshooting.html](https://jdebp.eu/Softwares/nosh/guide/troubleshooting.html)
 
 The link above may come in useful.
 
@@ -141,7 +141,8 @@ To these features nosh [adds](https://jdebp.eu/Softwares/nosh/guide/new-interfac
 
 For a general presentation you may read the following:
 
-https://jdebp.eu/Softwares/nosh/guide/introduction.html
+[https://jdebp.eu/Softwares/nosh/guide/introduction.html](https://jdebp.eu/Softwares/nosh/guide/introduction.html)
+
 
 ### Service bundles
 
@@ -195,7 +196,7 @@ It provides general service management (start/stop, enable/disable etc.) aswell 
 
 `system-control convert-systemd-units <unit-file>` supports conversion for [various types](https://jdebp.eu/Softwares/nosh/guide/converting-systemd-units.html) of systemd unit files to service bundles.
 
-It also understands extended syntax to express service-bundle specific functionality in a systemd-like unit file, which can be used for easy distribution for example.
+It also understands extended syntax to express service bundle-specific functionality in a systemd-like unit file, which can be used for easy distribution for example.
 
 In other words, one can benefit from existing systemd unit files through automatic conversion in many cases.
 
