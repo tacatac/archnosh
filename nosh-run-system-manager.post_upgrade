@@ -1,0 +1,10 @@
+#!/bin/sh -
+
+for i in - -usr -var -home
+do
+    /bin/rm -f -r /etc/service-bundles/services/fsck@$i/
+    /bin/rm -f -r /etc/service-bundles/services/mount@$i/
+done
+
+( cd /etc/system-control/convert && redo all )
+

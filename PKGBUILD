@@ -89,6 +89,7 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         "maintenance.sh"
         "scriptletbuilder.sh"
         "nosh-run-udev.post_install.extra"
+        "nosh-run-system-manager.post_upgrade"
         
         "nosh-bundles.install"
         "nosh-run-klog.install"
@@ -115,6 +116,7 @@ sha256sums=('4e57426fb4eb3171400fe735c0e28f0264a7cb61b5626071a8e00738e5eeaa8a'
             '8d2e87fabd5b8597140ec53721be97d74adf44e89fbef45f9a4c295becaf5a00'
             'd2ee01d6d41caa8015eb74eb37525de3d45c5bb071c8785fe245884aa19f20ac'
             'f90975c663794c7e87be157e03cdfa9bd835c212200539367e848fbbf9fe6cc9'
+            '98d556edd4b37d188c60cf84d019365126cae47a61a1084f84d3eb28b7dacb6b'
             
             'SKIP'
             'SKIP'
@@ -155,9 +157,10 @@ prepare() {
     cd "${srcdir}"/package/debian
     sed -i 's@usr/local/lib@usr/lib@g' nosh-run-via-systemd.postinst.extra 
     
-    msg2 "Adding nosh-run-udev.post_install.extra"
-    # copy over the nosh-run-udev install file
+    msg2 "Adding extra install scripts"
+    # copy over the nosh-run-udev and nosh-run-system-manager install files
     cp -v "${srcdir}"/nosh-run-udev.post_install.extra "${srcdir}"/package/debian/
+    cp -v "${srcdir}"/nosh-run-system-manager.post_upgrade "${srcdir}"/package/debian/
     
     # rename debian maintenance scripts to Archlinux nomenclature
     msg2 "Renaming maintenance scripts"
