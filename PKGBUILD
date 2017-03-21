@@ -151,7 +151,7 @@ prepare() {
     # patch package/stage for Archlinux filesystem layout
     msg2 "Align staging with Arch FS hierarchy guidelines"
     cd "${srcdir}"/package
-    patch -i "${srcdir}"/nosh-staging.patch
+    patch -i "${srcdir}"/staging.patch
     
     # patch debian maintenance scripts
     msg2 "Adapting maintenance scripts"
