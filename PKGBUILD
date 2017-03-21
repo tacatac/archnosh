@@ -114,7 +114,7 @@ noextract=()
 sha256sums=('4d8417de969e708c5d6010804981514479e465e73fb5a20444147ef0bcbbead1'
             '87ad51a0d21fdadf12daa23309559a2599bd3ab5d658582dd73dc54388452251'
             '305fd4cd53b2cad248d0e452bbcc3a858ff22fccd7ecbf9d117eeb1d2a432f6b'
-            '2421737983743c871424499a6bc287f4d711b15e4a5ab8632e92ca62ef3a833a'
+            'a196ede02e8ba88708ab111d25b1c1d60e163ac09fc9be3c1783daea2cfc102e'
             'd2ee01d6d41caa8015eb74eb37525de3d45c5bb071c8785fe245884aa19f20ac'
             'f90975c663794c7e87be157e03cdfa9bd835c212200539367e848fbbf9fe6cc9'
 
@@ -157,7 +157,7 @@ prepare() {
     msg2 "Adapting maintenance scripts"
     cd "${srcdir}"/package/debian
     sed -i 's@usr/local/lib@usr/lib@g' nosh-run-via-systemd.postinst.extra
-    cd "${srcdir}"
+    cd "${srcdir}"/package
     patch -p1 -i "${srcdir}"/maintenance-scripts.patch
     
     
