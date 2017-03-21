@@ -86,10 +86,10 @@ done
     
 source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         "nosh-staging.patch"
+        "maintenance-scripts.patch"
         "maintenance.sh"
         "scriptletbuilder.sh"
         "nosh-run-udev.post_install.extra"
-        "nosh-run-system-manager.post_upgrade"
         
         "nosh-bundles.install"
         "nosh-run-klog.install"
@@ -111,12 +111,13 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         "nosh-run-openssh-server.install"
         )
 noextract=()
-sha256sums=('4e57426fb4eb3171400fe735c0e28f0264a7cb61b5626071a8e00738e5eeaa8a'
+sha256sums=('4d8417de969e708c5d6010804981514479e465e73fb5a20444147ef0bcbbead1'
             '87ad51a0d21fdadf12daa23309559a2599bd3ab5d658582dd73dc54388452251'
-            '8d2e87fabd5b8597140ec53721be97d74adf44e89fbef45f9a4c295becaf5a00'
+            '305fd4cd53b2cad248d0e452bbcc3a858ff22fccd7ecbf9d117eeb1d2a432f6b'
+            '2421737983743c871424499a6bc287f4d711b15e4a5ab8632e92ca62ef3a833a'
             'd2ee01d6d41caa8015eb74eb37525de3d45c5bb071c8785fe245884aa19f20ac'
             'f90975c663794c7e87be157e03cdfa9bd835c212200539367e848fbbf9fe6cc9'
-            '98d556edd4b37d188c60cf84d019365126cae47a61a1084f84d3eb28b7dacb6b'
+
             
             'SKIP'
             'SKIP'
@@ -152,15 +153,17 @@ prepare() {
     cd "${srcdir}"/package
     patch -i "${srcdir}"/nosh-staging.patch
     
-    # patch debian maintenance scripts, just one path to fix
+    # patch debian maintenance scripts
     msg2 "Adapting maintenance scripts"
     cd "${srcdir}"/package/debian
-    sed -i 's@usr/local/lib@usr/lib@g' nosh-run-via-systemd.postinst.extra 
+    sed -i 's@usr/local/lib@usr/lib@g' nosh-run-via-systemd.postinst.extra
+    cd "${srcdir}"
+    patch -p1 -i "${srcdir}"/maintenance-scripts.patch
+    
     
     msg2 "Adding extra install scripts"
-    # copy over the nosh-run-udev and nosh-run-system-manager install files
+    # copy over the nosh-run-udev install files
     cp -v "${srcdir}"/nosh-run-udev.post_install.extra "${srcdir}"/package/debian/
-    cp -v "${srcdir}"/nosh-run-system-manager.post_upgrade "${srcdir}"/package/debian/
     
     # rename debian maintenance scripts to Archlinux nomenclature
     msg2 "Renaming maintenance scripts"
