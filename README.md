@@ -1,6 +1,6 @@
 # Archnosh is nosh for Archlinux
 
-This repository provides the build and install files necessary to integrate the [nosh](https://jdebp.eu/Softwares/nosh/) system and service manager with Archlinux package management.
+This repository provides the build files necessary to integrate the [nosh](https://jdebp.eu/Softwares/nosh/) system and service manager with Archlinux package management.
 
 The packaging here closely follows the [Debian packaging](https://jdebp.eu/Softwares/nosh/debian-binary-packages.html) provided by the author of nosh.
 
@@ -8,7 +8,7 @@ The packaging here closely follows the [Debian packaging](https://jdebp.eu/Softw
 
 ### The packages
 
-This is a split-package PKGBUILD so several packages will be generated.
+This is a split-package PKGBUILD which will generate several packages, covering the toolset aswell as a service bundle collection which together can provide a complete working system.
 
 #### Dependencies
 
@@ -29,7 +29,7 @@ Put the files in a directory and run:
 
     $ makepkg
 
-You can then install them with:
+You can then install the generated packages with:
 
     $ pacman -U <package-name>
 
@@ -37,7 +37,7 @@ You can then install them with:
 
 Read the [timorous admin's installation how-to](https://jdebp.eu/Softwares/nosh/timorous-admin-installation-how-to.html).
 
-The following should be the two common-case alternatives.
+The following describes the two expected common setups.
 
 #### nosh service manager only: nosh-run-via-systemd
 
@@ -53,6 +53,7 @@ The following packages are necessary:
 * nosh-terminal-management
 * nosh-bundles
 * nosh-run-via-systemd
+* nosh-run-debian-server-base
 
 Due to Archlinux's default preset *disable* policy (/usr/lib/systemd/system-preset/99-default.preset), you need to enable the following unit:
 
@@ -63,9 +64,9 @@ Then you should enable one or both of:
 * system-control-normal.service
 * service-manager-svscan.path
 
-`system-control-normal.service` uses nosh targets to bring up enabled services.
+`system-control-normal.service` uses nosh targets to bring up enabled services. Simply run `system-control enable <service>` and `systemctl disable <service>` for its equivalent in order to switch management of the service over to nosh.
 
-`service-manager-svscan.path` will scan and bring up any service bundle you place in the /service directory (which you will have to create) and is the more typical daemontools [approach](https://cr.yp.to/daemontools/faq/create.html#why).
+`service-manager-svscan.path` will scan and bring up any service bundle you place in the /service directory (which you will have to create), effectively enabling it. This is the more typical daemontools [approach](https://cr.yp.to/daemontools/faq/create.html#why).
 
 It's probably simpler to stick to just one of these methods.
 
@@ -122,12 +123,12 @@ The link above may come in useful.
 
 ## Some nosh guidelines
 
-The online [nosh guide](https://jdebp.eu/Softwares/nosh/guide/), also available in the `nosh-guide` package, and command manpages provide comprehensive documentation.
+The online [nosh guide](https://jdebp.eu/Softwares/nosh/guide/), also available in the `nosh-guide` package, and command [manpages](https://jdebp.eu/Softwares/nosh/guide/commands.html) provide comprehensive documentation.
 
 The nosh toolset follows general [daemontools design](https://jdebp.eu/FGA/daemontools-family.html) which includes:
 
 * using the filesystem as database and API: the system can be inspected and modified using standard filesystem commands
-* logging as a normal service
+* logging as an ordinary --"first-class citizen"-- service
 * chain-loading of simple utilities to build a controlled final running state
 * composability: utilities from other toolsets in this family can be used in conjunction with nosh
 
@@ -176,7 +177,7 @@ A standard bundle will look something like this:
 
 The `before` and `after` directories allow for linking to other service bundles to set *ordering constraints*.
 
-The `required-by`, `stopped-by`, `wanted-by` and `wants` directories allow for linking to other service bundles to set *dependency constraints*.
+The `conflicts`, `required-by`, `stopped-by`, `wanted-by` and `wants` directories allow for linking to other service bundles to set *dependency constraints*.
 
 The `log` directory points to a logging service.
 
@@ -190,8 +191,16 @@ The `supervise` directory contains the control/status API files.
 
 It provides general service management (start/stop, enable/disable etc.) aswell as system management (reboot, poweroff etc.) and various other specialised commands for e.g. converting systemd-style unit files to service bundles.
 
+### Converting systemd unit files
+
+`system-control convert-systemd-units <unit-file>` supports conversion for [various types](https://jdebp.eu/Softwares/nosh/guide/converting-systemd-units.html) of systemd unit files to service bundles.
+
+It also understands extended syntax to express service-bundle specific functionality in a systemd-like unit file, which can be used for easy distribution for example.
+
+In other words, one can benefit from existing systemd unit files through automatic conversion in many cases.
+
 ## License
 
-These packaging configuration files are under the public domain [Unlicense](https://unlicense.org/), see the UNLICENSE file provided.
+These packaging configuration files are distributed under the public domain [Unlicense](https://unlicense.org/), see the UNLICENSE file provided.
 
-The nosh software, however, is distributed under different licensing.
+The nosh software, however, is distributed under BSD/BSD-compatible licensing.
