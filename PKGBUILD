@@ -85,7 +85,7 @@ do
 done
     
 source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
-        "nosh-staging.patch"
+        "staging.patch"
         "maintenance-scripts.patch"
         "maintenance.sh"
         "scriptletbuilder.sh"
