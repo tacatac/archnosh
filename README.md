@@ -6,6 +6,14 @@ The packaging here closely follows the [Debian packaging](https://jdebp.eu/Softw
 
 ## How do I use it?
 
+With caution! Installing some of the nosh packages provided here can profoundly change the way your system bootstraps and runs services.
+
+Furthermore, the packages have so far only been tested on virtual machines with bare minimum installs of early 2017 Archlinux releases. Where they *do* work for the most part but tailoring to your system will be necessary.
+
+**N.B.: Networking is not currently configured automatically, network interfaces make have to be brought up and configured manually.**
+
+*Caveat emptor.*
+
 ### The packages
 
 This is a split-package PKGBUILD which will generate several packages, covering the toolset aswell as a service bundle collection which together can provide a complete working system.
