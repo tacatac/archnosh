@@ -10,7 +10,7 @@ With caution! Installing some of the nosh packages provided here can profoundly 
 
 Furthermore, the packages have so far only been tested on virtual machines with bare minimum installs of early 2017 Archlinux releases. Where they *do* work for the most part but tailoring to your system will be necessary.
 
-**N.B.: Networking is not currently configured automatically, network interfaces make have to be brought up and configured manually.**
+**N.B.: Automatic network configuration currently does not work with Archlinux, network interfaces may have to be brought up and configured manually.**
 
 *Caveat emptor.*
 
