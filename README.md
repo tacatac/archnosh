@@ -8,7 +8,7 @@ The packaging here closely follows the [Debian packaging](https://jdebp.eu/Softw
 
 With caution! Installing some of the nosh packages provided here can profoundly change the way your system bootstraps and runs services.
 
-Furthermore, the packages have so far only been tested on virtual machines with bare minimum installs of early 2017 Archlinux releases. Where they *do* work for the most part but tailoring to your system will be necessary.
+Furthermore, the packages have so far only been tested on virtual machines with bare minimum installs of early 2017 Archlinux releases, where they *do* work for the most part but tailoring to your system will be necessary.
 
 **N.B.: Automatic network configuration currently does not work with Archlinux, network interfaces may have to be brought up and configured manually.**
 
@@ -45,7 +45,7 @@ You can then install the generated packages with:
 
 Read the [timorous admin's installation how-to](https://jdebp.eu/Softwares/nosh/timorous-admin-installation-how-to.html).
 
-The following describes the two expected common setups.
+The following describes the two expected common setups. Both assume you are running a default systemd-managed install.
 
 #### nosh service manager only: nosh-run-via-systemd
 
@@ -99,9 +99,38 @@ For a fully nosh-managed system i.e. nosh running as the init process and servic
 
 ##### udev
 
-The above installation assumes udev is the device manager, which requires the [systemd](https://www.archlinux.org/packages/core/x86_64/systemd/) package to be installed on Archlinux.
+The above installation assumes udev is the device manager, which is provided by the [systemd](https://www.archlinux.org/packages/core/x86_64/systemd/) package on Archlinux. However, using that package's `systemd-udevd` and `udevadm` commands with nosh has proven unsuccessful. If you know of any way to make it work, let me know.
 
-In order to allow this, archnosh packages do not conflict, for the most part, with the systemd packages. Alternative device manager run packages are provided (vdev, busybox-mdev, suckless-mdev) but you will have to account for Archlinux systemd/udev integration with various other system packages.
+Instead we will detail the installation of [eudev](https://aur.archlinux.org/packages/eudev/),[libeudev](https://aur.archlinux.org/packages/libeudev/),[eudev-systemd](https://aur.archlinux.org/packages/eudev-systemd/) and [libeudev-systemd](https://aur.archlinux.org/packages/libeudev-systemd/) (available from the AUR) which should provide a drop-in replacement for systemd/udev.
+
+Alternative device manager run-packages are provided (vdev, busybox-mdev, suckless-mdev) but you will have to account for Archlinux systemd/udev integration with various other system packages.
+
+N.B.: the current `eudev-3.2.1-2` package, which provides `eudev` and `libeudev`, fails to build with an up-to-date system due to an issue with gperf which has been [fixed upstream](https://github.com/gentoo/eudev/commit/5bab4d8de0dcbb8e2e7d4d5125b4aea1652a0d60) but not released in a versioned archive. This has been pointed out to the Archlinux package maintainer. Until it is fixed, you will have to patch it yourself or build from the latest sources.
+
+1. Install libeudev
+
+    This conflicts with the libsystemd package, you should remove it but it will almost certainly be a dependency for other packages on your system so run:
+
+        # pacman -dd -S libeudev
+
+    The `-dd` (or `--nodeps`) repeated option skips dependency checking. You will be providing replacements for these dependencies.
+
+    It might also fail to install due to the following pre-existing files: `/usr/include/libudev.h` and `/usr/lib/pkgconfig/libudev.pc`. Delete these manually.
+
+2. Install libeudev-systemd
+
+    This will provide the `libsystemd.so` libraries.
+
+3. Install eudev
+
+    This conflicts with the systemd package and, again, will doubtless bring up many dependency warnings so run:
+    
+        # pacman -dd -S eudev
+
+4. Install eudev-systemd
+
+    This will provide some shim systemd binaries and libraries.
+
 
 ##### virtual terminals
 
