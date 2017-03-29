@@ -89,7 +89,6 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         "maintenance-scripts.patch"
         "maintenance.sh"
         "scriptletbuilder.sh"
-        "nosh-run-udev.post_install.extra"
         
         "nosh-bundles.install"
         "nosh-run-klog.install"
@@ -116,8 +115,6 @@ sha256sums=('d9d771bd808ba2d3db5c2b3dcc27e53c2b9a95bcce3e6710499ff85b32825360'
             '305fd4cd53b2cad248d0e452bbcc3a858ff22fccd7ecbf9d117eeb1d2a432f6b'
             'a196ede02e8ba88708ab111d25b1c1d60e163ac09fc9be3c1783daea2cfc102e'
             'd2ee01d6d41caa8015eb74eb37525de3d45c5bb071c8785fe245884aa19f20ac'
-            'f90975c663794c7e87be157e03cdfa9bd835c212200539367e848fbbf9fe6cc9'
-
             
             'SKIP'
             'SKIP'
@@ -159,11 +156,6 @@ prepare() {
     sed -i 's@usr/local/lib@usr/lib@g' nosh-run-via-systemd.postinst.extra
     cd "${srcdir}"/package
     patch -p1 -i "${srcdir}"/maintenance-scripts.patch
-    
-    
-    msg2 "Adding extra install scripts"
-    # copy over the nosh-run-udev install files
-    cp -v "${srcdir}"/nosh-run-udev.post_install.extra "${srcdir}"/package/debian/
     
     # rename debian maintenance scripts to Archlinux nomenclature
     msg2 "Renaming maintenance scripts"
