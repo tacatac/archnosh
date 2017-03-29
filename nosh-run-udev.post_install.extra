@@ -6,6 +6,6 @@ then
     ln -f -s /usr/lib/systemd/systemd-udevd /usr/bin/udevd
 else
     echo "/usr/bin/udevd already exists"
-    echo "On Archlinux, udev is provided by systemd"
-    echo "Make sure it is a link to /usr/lib/systemd/systemd-udevd"
+    echo "On Archlinux, udev is provided by systemd by default"
+    echo "Make sure it points to a working udev implementation"
 fi    
