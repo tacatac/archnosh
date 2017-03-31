@@ -101,7 +101,7 @@ For a fully nosh-managed system i.e. nosh running as the init process and servic
 
 The above installation assumes udev is the device manager, which is provided by the [systemd](https://www.archlinux.org/packages/core/x86_64/systemd/) package on Archlinux. However, using that package's `systemd-udevd` and `udevadm` commands with nosh has proven unsuccessful. If you know of any way to make it work, let me know.
 
-Instead we will detail the installation of [eudev](https://aur.archlinux.org/packages/eudev/),[libeudev](https://aur.archlinux.org/packages/libeudev/),[eudev-systemd](https://aur.archlinux.org/packages/eudev-systemd/) and [libeudev-systemd](https://aur.archlinux.org/packages/libeudev-systemd/) (available from the AUR) which should provide a drop-in replacement for systemd/udev.
+Instead we will detail the installation of [eudev](https://aur.archlinux.org/packages/eudev/), [libeudev](https://aur.archlinux.org/packages/libeudev/), [eudev-systemd](https://aur.archlinux.org/packages/eudev-systemd/) and [libeudev-systemd](https://aur.archlinux.org/packages/libeudev-systemd/) (available from the AUR) which should provide a drop-in replacement for systemd/udev.
 
 Alternative device manager run-packages are provided (vdev, busybox-mdev, suckless-mdev) but you will have to account for Archlinux systemd/udev integration with various other system packages.
 
@@ -236,6 +236,14 @@ It provides general service management (start/stop, enable/disable etc.) aswell 
 It also understands extended syntax to express service bundle-specific functionality in a systemd-like unit file, which can be used for easy distribution for example.
 
 In other words, one can benefit from existing systemd unit files through automatic conversion in many cases.
+
+## Repositories
+
+This repository is publicly available at the following locations:
+
+1. [https://framagit.org/taca/archnosh](https://framagit.org/taca/archnosh)
+2. [https://repo.or.cz/archnosh.git](https://repo.or.cz/archnosh.git)
+3. [https://github.com/tacatac/archnosh](https://github.com/tacatac/archnosh)
 
 ## License
 
