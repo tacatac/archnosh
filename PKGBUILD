@@ -89,6 +89,7 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         "maintenance-scripts.patch"
         "maintenance.sh"
         "scriptletbuilder.sh"
+        "services-dbus.patch"
         
         "nosh-bundles.install"
         "nosh-run-klog.install"
@@ -110,12 +111,13 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         "nosh-run-openssh-server.install"
         )
 noextract=()
-sha256sums=('d9d771bd808ba2d3db5c2b3dcc27e53c2b9a95bcce3e6710499ff85b32825360'
-            '87ad51a0d21fdadf12daa23309559a2599bd3ab5d658582dd73dc54388452251'
-            '305fd4cd53b2cad248d0e452bbcc3a858ff22fccd7ecbf9d117eeb1d2a432f6b'
+sha256sums=('61f816f99191b14ef2c0a284f382b189d7fabd5b256a237087fab72a063752ec'
+            'ceab03a0b164c16b1189e46e1db45e71e83c5612ea01c639d750437cbeb6ff58'
+            'bc4fff63166d6347cfc9e160c1882c91ed9551577da563aafa12e32375420887'
             'a196ede02e8ba88708ab111d25b1c1d60e163ac09fc9be3c1783daea2cfc102e'
             'd2ee01d6d41caa8015eb74eb37525de3d45c5bb071c8785fe245884aa19f20ac'
-            
+            '429755272a87b062d97dbaa9c146d551d8b20b6ea3670c5803ddb5b789b829b2'
+
             'SKIP'
             'SKIP'
             'SKIP'
@@ -147,14 +149,14 @@ prepare() {
     
     # patch package/stage for Archlinux filesystem layout
     msg2 "Align staging with Arch FS hierarchy guidelines"
-    cd "${srcdir}"/package
-    patch -i "${srcdir}"/staging.patch
+    cd "${srcdir}"
+    patch -p1 -i "${srcdir}"/staging.patch
     
     # patch debian maintenance scripts
     msg2 "Adapting maintenance scripts"
     cd "${srcdir}"/package/debian
     sed -i 's@usr/local/lib@usr/lib@g' nosh-run-via-systemd.postinst.extra
-    cd "${srcdir}"/package
+    cd "${srcdir}"
     patch -p1 -i "${srcdir}"/maintenance-scripts.patch
     
     # rename debian maintenance scripts to Archlinux nomenclature
@@ -162,6 +164,10 @@ prepare() {
     cd "${srcdir}"/package/debian
     source "${srcdir}"/maintenance.sh
 
+    # patch service files
+    msg2 "Modifying service files"
+    cd "${srcdir}"
+    patch -p1 -i "${srcdir}"/services-dbus.patch
 }
 
 build() {
