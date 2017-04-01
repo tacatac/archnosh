@@ -105,8 +105,6 @@ Instead we will detail the installation of [eudev](https://aur.archlinux.org/pac
 
 Alternative device manager run-packages are provided (vdev, busybox-mdev, suckless-mdev) but you will have to account for Archlinux systemd/udev integration with various other system packages.
 
-N.B.: the current `eudev-3.2.1-2` package, which provides `eudev` and `libeudev`, fails to build with an up-to-date system due to an issue with gperf which has been [fixed upstream](https://github.com/gentoo/eudev/commit/5bab4d8de0dcbb8e2e7d4d5125b4aea1652a0d60) but not released in a versioned archive. This has been pointed out to the Archlinux package maintainer. Until it is fixed, you will have to patch it yourself or build from the latest sources.
-
 1. Install libeudev
 
     This conflicts with the libsystemd package, you should remove it but it will almost certainly be a dependency for other packages on your system so run:
