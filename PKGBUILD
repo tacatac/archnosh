@@ -111,7 +111,7 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         "nosh-run-openssh-server.install"
         )
 noextract=()
-sha256sums=('2d7d2f085d04b1e28c08f2bf6ca78113fb3bd036b114def8aa9d938f3dc284e2'
+sha256sums=('dc5e5e7f55322758a039f33016110573af3b9c539db1a40d5a36d1bc747f1360'
             'ceab03a0b164c16b1189e46e1db45e71e83c5612ea01c639d750437cbeb6ff58'
             'bc4fff63166d6347cfc9e160c1882c91ed9551577da563aafa12e32375420887'
             'a196ede02e8ba88708ab111d25b1c1d60e163ac09fc9be3c1783daea2cfc102e'
@@ -311,7 +311,8 @@ _package() {
             ;;
         nosh-run-udev)
             pkgdesc="Run udev as the device manager"
-            depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.16' 'nosh-bundles' 'systemd')
+            depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.16' 'nosh-bundles' )
+            optdepends+=( 'systemd: the systemd implementation currently does not work with nosh' 'eudev: for an alternative udev implementation' )
             conflicts+=('nosh-run-busybox-mdev' 'nosh-run-suckless-mdev' 'nosh-run-vdev')
             install="nosh-run-udev.install"
             ;;
