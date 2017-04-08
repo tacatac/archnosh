@@ -10,7 +10,7 @@ With caution! Installing some of the nosh packages provided here can profoundly 
 
 Furthermore, the packages have so far only been tested on virtual machines with bare minimum installs of early 2017 Archlinux releases, where they *do* work for the most part but tailoring to your system will be necessary.
 
-**N.B.: Automatic network configuration currently does not work with Archlinux, network interfaces may have to be brought up and configured manually.**
+**N.B.: Automatic network configuration is not currently implemented for Archlinux, network interfaces may have to be brought up and configured manually.**
 
 *Caveat emptor.*
 
@@ -99,11 +99,13 @@ For a fully nosh-managed system i.e. nosh running as the init process and servic
 
 ##### udev
 
-The above installation assumes udev is the device manager, which is provided by the [systemd](https://www.archlinux.org/packages/core/x86_64/systemd/) package on Archlinux. However, using that package's `systemd-udevd` and `udevadm` commands with nosh has proven unsuccessful. If you know of any way to make it work, let me know.
+The above installation assumes udev is the device manager, which is provided by the [systemd](https://www.archlinux.org/packages/core/x86_64/systemd/) package on Archlinux.
 
-Instead we will detail the installation of [eudev](https://aur.archlinux.org/packages/eudev/), [libeudev](https://aur.archlinux.org/packages/libeudev/), [eudev-systemd](https://aur.archlinux.org/packages/eudev-systemd/) and [libeudev-systemd](https://aur.archlinux.org/packages/libeudev-systemd/) (available from the AUR) which should provide a drop-in replacement for systemd/udev.
+The easiest method is to simply use the binaries and configuration files provided by this package to run udev. `nosh-run-udev` will symlink `systemd-udevd` to `/usr/bin/udevd` and everything should work transparently.
 
-Alternative device manager run-packages are provided (vdev, busybox-mdev, suckless-mdev) but you will have to account for Archlinux systemd/udev integration with various other system packages.
+Alternatively you may wish to use the `eudev` implementation rather than keeping the systemd package for udev functionality.
+
+We will detail the installation of [eudev](https://aur.archlinux.org/packages/eudev/), [libeudev](https://aur.archlinux.org/packages/libeudev/), [eudev-systemd](https://aur.archlinux.org/packages/eudev-systemd/) and [libeudev-systemd](https://aur.archlinux.org/packages/libeudev-systemd/) (available from the AUR) which should provide a drop-in replacement for systemd/udev.
 
 1. Install libeudev
 
@@ -130,17 +132,31 @@ Alternative device manager run-packages are provided (vdev, busybox-mdev, suckle
     This will provide some shim systemd binaries and libraries.
 
 
+From there you should have a working udev and some systemd shims which should allow installing most packages without too much trouble.
+
+Other device manager run-packages are provided: vdev, busybox-mdev and suckless-mdev. You will probably need to account for Archlinux's rather heavy systemd/udev integration with various other system packages in order to use them.
+
+
 ##### virtual terminals
 
 Rather than kernel virtual terminals, [user-space virtual terminals](https://jdebp.eu/Softwares/nosh/user-vt-screenshots.html) may be used by installing `nosh-run-user-vt`.
 
 The `nosh-execline-shims` package is necessary if you do not have [execline](https://skarnet.org/software/execline/) available.
 
+
 ##### base
 
 `nosh-run-debian-server-base` has currently not been renamed... 
 
 It provides essential presets for booting your system. A more featureful `nosh-run-debian-desktop-base` is also available.
+
+
+##### Non-root Xorg
+
+Since we are not using systemd's `logind`, starting X as an unpriviledged user requires adding that user to the "input" and "video" groups.
+
+See [https://wiki.gentoo.org/wiki/Non_root_Xorg](https://wiki.gentoo.org/wiki/Non_root_Xorg) for further details.
+
 
 ##### shims
 
@@ -217,7 +233,7 @@ The `conflicts`, `required-by`, `stopped-by`, `wanted-by` and `wants` directorie
 
 The `log` directory points to a logging service.
 
-The `service` directory contains the scripts used to manage the service. `service/env` can be used to store configuration information.
+The `service` directory contains the scripts used to run the service. `service/env` can be used to store configuration information.
 
 The `supervise` directory contains the control/status API files.
 
