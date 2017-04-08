@@ -90,6 +90,7 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         "maintenance.sh"
         "scriptletbuilder.sh"
         "services-dbus.patch"
+        "nosh-run-udev.post_install.extra"
         
         "nosh-bundles.install"
         "nosh-run-klog.install"
@@ -117,6 +118,7 @@ sha256sums=('dc5e5e7f55322758a039f33016110573af3b9c539db1a40d5a36d1bc747f1360'
             'a196ede02e8ba88708ab111d25b1c1d60e163ac09fc9be3c1783daea2cfc102e'
             'd2ee01d6d41caa8015eb74eb37525de3d45c5bb071c8785fe245884aa19f20ac'
             '429755272a87b062d97dbaa9c146d551d8b20b6ea3670c5803ddb5b789b829b2'
+            '01e51befba50cb101d79f196cb839f6cbf6811ee3b621dc351d556e15cec7bc6'
 
             'SKIP'
             'SKIP'
@@ -163,6 +165,10 @@ prepare() {
     msg2 "Renaming maintenance scripts"
     cd "${srcdir}"/package/debian
     source "${srcdir}"/maintenance.sh
+
+    # add extra install script
+    msg2 "Adding extra install scripts"
+    cp -v "${srcdir}"/nosh-run-udev.post_install.extra "${srcdir}"/package/debian/
 
     # patch service files
     msg2 "Modifying service files"
