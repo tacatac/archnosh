@@ -37,7 +37,7 @@ pkgname=(
     'nosh-run-debian-desktop-base'
     'nosh-run-openssh-server'
     )               
-pkgver=1.33
+pkgver=1.34
 pkgrel=1
 pkgdesc="A suite of system-level utilities for initializing and running a BSD or Linux system, for managing daemons, for managing terminals, and for managing logging."
 arch=('x86_64')
@@ -112,7 +112,7 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         "nosh-run-openssh-server.install"
         )
 noextract=()
-sha256sums=('da484e473a58c6c4e572c4d6f651f9dbf19b1beb41ebd52595d9fca8251c7027'
+sha256sums=('f7802501da9af7eb1e77d2f3052e6addccfa8fb4a038456458ee4e22172c6be8'
             'ceab03a0b164c16b1189e46e1db45e71e83c5612ea01c639d750437cbeb6ff58'
             'bc4fff63166d6347cfc9e160c1882c91ed9551577da563aafa12e32375420887'
             'a196ede02e8ba88708ab111d25b1c1d60e163ac09fc9be3c1783daea2cfc102e'
