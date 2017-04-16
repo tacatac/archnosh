@@ -112,7 +112,8 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         "nosh-run-openssh-server.install"
         )
 noextract=()
-sha256sums=('f7802501da9af7eb1e77d2f3052e6addccfa8fb4a038456458ee4e22172c6be8' # source tarball
+sha256sums=(
+            '27a78c796c00765f3d4c6fec015fc89b01b0fa87507d7ccb54fe23be07b4036a' # nosh-1.34.tar.gz
             'ceab03a0b164c16b1189e46e1db45e71e83c5612ea01c639d750437cbeb6ff58' # staging.patch
             'bc4fff63166d6347cfc9e160c1882c91ed9551577da563aafa12e32375420887' # maintenance-scripts.patch
             '47b37fc795f377f124d9240155245535360707c1fa40c4d91ae441b3e9b12d18' # maintenance.sh
