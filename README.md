@@ -8,7 +8,7 @@ The packaging here closely follows the [Debian packaging](https://jdebp.eu/Softw
 
 With caution! Installing some of the nosh packages provided here can profoundly change the way your system bootstraps and runs services.
 
-Furthermore, the packages have so far only been tested on virtual machines with bare minimum installs of early 2017 Archlinux releases, where they *do* work for the most part but tailoring to your system will be necessary.
+Furthermore, the packages have so far been tested on virtual machines with bare minimum installs of early 2017 Archlinux releases and on a personal laptop, where they *do* work for the most part but tailoring to your system will be necessary.
 
 **N.B.: Automatic network configuration is not currently implemented for Archlinux, network interfaces may have to be brought up and configured manually.**
 
@@ -101,7 +101,7 @@ For a fully nosh-managed system i.e. nosh running as the init process and servic
 
 The above installation assumes udev is the device manager, which is provided by the [systemd](https://www.archlinux.org/packages/core/x86_64/systemd/) package on Archlinux.
 
-The easiest method is to simply use the binaries and configuration files provided by this package to run udev. `nosh-run-udev` will symlink `systemd-udevd` to `/usr/bin/udevd` and everything should work transparently.
+The easiest method is to simply use the binaries and configuration files provided by this package to run udev. `nosh-run-udev` will symlink `/usr/bin/udevd` to `/usr/lib/systemd/systemd-udevd` and everything should work transparently. This means all udev configuration rules already set up should work as-is.
 
 Alternatively you may wish to use the `eudev` implementation rather than keeping the systemd package for udev functionality.
 
@@ -134,7 +134,7 @@ We will detail the installation of [eudev](https://aur.archlinux.org/packages/eu
 
 From there you should have a working udev and some systemd shims which should allow installing most packages without too much trouble.
 
-Other device manager run-packages are provided: vdev, busybox-mdev and suckless-mdev. You will probably need to account for Archlinux's rather heavy systemd/udev integration with various other system packages in order to use them.
+Other device manager run-packages are provided: vdev, busybox-mdev and suckless-mdev. You will probably need to account for Archlinux's rather heavy systemd/udev integration in order to use them.
 
 
 ##### virtual terminals
@@ -151,7 +151,7 @@ The `nosh-execline-shims` package is necessary if you do not have [execline](htt
 It provides essential presets for booting your system. A more featureful `nosh-run-debian-desktop-base` is also available.
 
 
-##### Non-root Xorg
+##### non-root Xorg
 
 Since we are not using systemd's `logind`, starting X as an unpriviledged user requires adding that user to the "input" and "video" groups.
 
@@ -239,9 +239,9 @@ The `supervise` directory contains the control/status API files.
 
 ### system-control
 
-[system-control](https://jdebp.eu/Softwares/nosh/guide/system-control.html) is the workhorse command for the system.
+[system-control](https://jdebp.eu/Softwares/nosh/guide/system-control.html) is the workhorse command for the system from a user perspective.
 
-It provides general service management (start/stop, enable/disable etc.) aswell as system management (reboot, poweroff etc.) and various other specialised commands for e.g. converting systemd-style unit files to service bundles.
+It provides high-level system-wide and per-user service management (start/stop, enable/disable etc.) aswell as system management (reboot, poweroff etc.) and various other specialised commands for e.g. converting systemd-style unit files to service bundles.
 
 ### Converting systemd unit files
 
