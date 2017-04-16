@@ -112,13 +112,13 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         "nosh-run-openssh-server.install"
         )
 noextract=()
-sha256sums=('f7802501da9af7eb1e77d2f3052e6addccfa8fb4a038456458ee4e22172c6be8'
-            'ceab03a0b164c16b1189e46e1db45e71e83c5612ea01c639d750437cbeb6ff58'
-            'bc4fff63166d6347cfc9e160c1882c91ed9551577da563aafa12e32375420887'
-            'a196ede02e8ba88708ab111d25b1c1d60e163ac09fc9be3c1783daea2cfc102e'
-            'd2ee01d6d41caa8015eb74eb37525de3d45c5bb071c8785fe245884aa19f20ac'
-            '429755272a87b062d97dbaa9c146d551d8b20b6ea3670c5803ddb5b789b829b2'
-            '01e51befba50cb101d79f196cb839f6cbf6811ee3b621dc351d556e15cec7bc6'
+sha256sums=('f7802501da9af7eb1e77d2f3052e6addccfa8fb4a038456458ee4e22172c6be8' # source tarball
+            'ceab03a0b164c16b1189e46e1db45e71e83c5612ea01c639d750437cbeb6ff58' # staging.patch
+            'bc4fff63166d6347cfc9e160c1882c91ed9551577da563aafa12e32375420887' # maintenance-scripts.patch
+            '47b37fc795f377f124d9240155245535360707c1fa40c4d91ae441b3e9b12d18' # maintenance.sh
+            '2f3a9ee93505534f2db82d71edb694b1c32aa3f4e2880f3d62589a5fe65f062b' # scriptletbuilder.sh
+            '429755272a87b062d97dbaa9c146d551d8b20b6ea3670c5803ddb5b789b829b2' # services-dbus.patch
+            '0f79d7e1bdcc41181ebb06b49d347927e67a83fa5682a9a094fa3a2d8ec01c3a' # nosh-run-udev.post_install.extra
 
             'SKIP'
             'SKIP'

@@ -1,4 +1,6 @@
 #!/bin/sh -e 
+# rename files in package/debian/ to work with the scriptlet builder
+# i.e. Archlinux nomenclature for .install
 
 # functions to apply for service bundles in *.p files
 mv -v preinst.funcs pre_upgrade.funcs
