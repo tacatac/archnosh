@@ -14,7 +14,10 @@ mv -v nosh-bundles.postrm.extra nosh-bundles.post_upgrade.extra
 mv -v nosh-bundles.preinst.extra nosh-bundles.pre_upgrade.extra
 mv -v nosh-bundles.prerm.extra nosh-bundles.pre_remove.extra
 
+# runs external format import conversion
 mv -v nosh-run-system-manager.postinst nosh-run-system-manager.post_upgrade
+# needs to be done on install, explicitly for Archlinux
+cp -v nosh-run-system-manager.postinst nosh-run-system-manager.post_install
 
 mv -v nosh-run-via-systemd.postinst.extra nosh-run-via-systemd.post_install
 mv -v nosh-run-via-systemd.prerm.extra nosh-run-via-systemd.pre_remove
