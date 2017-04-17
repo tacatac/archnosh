@@ -38,7 +38,7 @@ pkgname=(
     'nosh-run-openssh-server'
     )               
 pkgver=1.33
-pkgrel=1
+pkgrel=2
 pkgdesc="A suite of system-level utilities for initializing and running a BSD or Linux system, for managing daemons, for managing terminals, and for managing logging."
 arch=('x86_64')
 url="https://jdebp.eu/Softwares/nosh/index.html"

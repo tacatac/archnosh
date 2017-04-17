@@ -1,7 +1,7 @@
 pkgbase = nosh
 	pkgdesc = A suite of system-level utilities for initializing and running a BSD or Linux system, for managing daemons, for managing terminals, and for managing logging.
 	pkgver = 1.33
-	pkgrel = 1
+	pkgrel = 2
 	url = https://jdebp.eu/Softwares/nosh/index.html
 	arch = x86_64
 	license = custom:MIT Expat
