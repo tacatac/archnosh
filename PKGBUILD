@@ -116,7 +116,7 @@ sha256sums=(
             'ac61466f97e90074804739ee0eba3544de5dce07da386379d9c57b17f2c5a7b7' # nosh-1.34.tar.gz
             'ceab03a0b164c16b1189e46e1db45e71e83c5612ea01c639d750437cbeb6ff58' # staging.patch
             'bc4fff63166d6347cfc9e160c1882c91ed9551577da563aafa12e32375420887' # maintenance-scripts.patch
-            '4c5d2f25706622493bb82f4770be59a4070d33939d9cb1e9bfe55f65e6f00bdc' # maintenance.sh
+            'e23cc822956da263bd9bfc7bc37a4edc48bd92dcd452535afbf7ea9828cf8d19' # maintenance.sh
             '2f3a9ee93505534f2db82d71edb694b1c32aa3f4e2880f3d62589a5fe65f062b' # scriptletbuilder.sh
             '429755272a87b062d97dbaa9c146d551d8b20b6ea3670c5803ddb5b789b829b2' # services-dbus.patch
             '0f79d7e1bdcc41181ebb06b49d347927e67a83fa5682a9a094fa3a2d8ec01c3a' # nosh-run-udev.post_install.extra
