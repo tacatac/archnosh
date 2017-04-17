@@ -113,7 +113,7 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         )
 noextract=()
 sha256sums=(
-            '27a78c796c00765f3d4c6fec015fc89b01b0fa87507d7ccb54fe23be07b4036a' # nosh-1.34.tar.gz
+            'ac61466f97e90074804739ee0eba3544de5dce07da386379d9c57b17f2c5a7b7' # nosh-1.34.tar.gz
             'ceab03a0b164c16b1189e46e1db45e71e83c5612ea01c639d750437cbeb6ff58' # staging.patch
             'bc4fff63166d6347cfc9e160c1882c91ed9551577da563aafa12e32375420887' # maintenance-scripts.patch
             '4c5d2f25706622493bb82f4770be59a4070d33939d9cb1e9bfe55f65e6f00bdc' # maintenance.sh
