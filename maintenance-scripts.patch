@@ -1,9 +1,9 @@
 diff --git a/package/debian/nosh-run-system-manager.postinst b/package/debian/nosh-run-system-manager.postinst
-index 4176377..5c3d127 100755
+index 4176377..e6d1a65 100755
 --- a/package/debian/nosh-run-system-manager.postinst
 +++ b/package/debian/nosh-run-system-manager.postinst
-@@ -1,14 +1,7 @@
- #!/bin/sh -
+@@ -1,14 +1,6 @@
+-#!/bin/sh -
 -case "$1" in
 -	configure)
 -		if test -z "$2"		# No prior version installed/left configured.
@@ -18,18 +18,18 @@ index 4176377..5c3d127 100755
 -		;;
 -esac
 diff --git a/package/debian/nosh-run-via-systemd.postrm b/package/debian/nosh-run-via-systemd.postrm
-index d73693e..7fb3187 100755
+index 433f762..71a75b2 100755
 --- a/package/debian/nosh-run-via-systemd.postrm
 +++ b/package/debian/nosh-run-via-systemd.postrm
-@@ -1,7 +1,4 @@
- #!/bin/sh -
+@@ -1,7 +1,3 @@
+-#!/bin/sh -
 -case "$1" in
 -	# post-deinstall for nosh-run-via-systemd
 -	remove|purge)
  		# Re-apply presets to services that were cut-out by a special preset in this package.
  		system-control preset sysinit.target dbus.socket local-syslog.target
  		system-control preset static-networking.target
-@@ -10,5 +7,3 @@ case "$1" in
+@@ -10,5 +6,3 @@ case "$1" in
  		system-control preset busybox-mdev.socket busybox-mdev-log.service busybox-mdev-rescan.service
  		system-control preset suckless-mdev.socket suckless-mdev-log.service suckless-mdev-rescan.service
  		system-control preset vdev.socket vdev-log.service

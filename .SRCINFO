@@ -36,16 +36,18 @@ pkgbase = nosh
 	source = nosh-run-virtualbox-guest.install
 	source = nosh-run-kernel-vt.install
 	source = nosh-run-udev.install
+	source = nosh-run-systemd-udev.install
 	source = nosh-run-debian-server-base.install
 	source = nosh-run-debian-desktop-base.install
 	source = nosh-run-openssh-server.install
 	sha256sums = ac61466f97e90074804739ee0eba3544de5dce07da386379d9c57b17f2c5a7b7
 	sha256sums = ceab03a0b164c16b1189e46e1db45e71e83c5612ea01c639d750437cbeb6ff58
-	sha256sums = bc4fff63166d6347cfc9e160c1882c91ed9551577da563aafa12e32375420887
-	sha256sums = e23cc822956da263bd9bfc7bc37a4edc48bd92dcd452535afbf7ea9828cf8d19
+	sha256sums = e5e90eea4ed0685eccbb6f5435c55100b4ffa53062068d202b0cb96c521c221a
+	sha256sums = 766ae08d97b2d840761132d164bd6bc596c4157470e9ce8b8a6135ea95624ed4
 	sha256sums = 2f3a9ee93505534f2db82d71edb694b1c32aa3f4e2880f3d62589a5fe65f062b
 	sha256sums = 429755272a87b062d97dbaa9c146d551d8b20b6ea3670c5803ddb5b789b829b2
 	sha256sums = 0f79d7e1bdcc41181ebb06b49d347927e67a83fa5682a9a094fa3a2d8ec01c3a
+	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = SKIP
@@ -108,6 +110,8 @@ pkgname = nosh-run-via-systemd
 pkgname = nosh-run-kernel-vt
 
 pkgname = nosh-run-udev
+
+pkgname = nosh-run-systemd-udev
 
 pkgname = nosh-run-busybox-mdev
 
