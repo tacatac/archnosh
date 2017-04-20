@@ -92,7 +92,6 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         "maintenance.sh"
         "scriptletbuilder.sh"
         "services-dbus.patch"
-        "nosh-run-udev.post_install.extra"
         
         "nosh-bundles.install"
         "nosh-run-klog.install"
@@ -116,13 +115,12 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         )
 noextract=()
 sha256sums=(
-            'ac61466f97e90074804739ee0eba3544de5dce07da386379d9c57b17f2c5a7b7' # nosh-1.34.tar.gz
+            '1d46922c3873421059daa9913516521999d06247d958fb8b0a92e339ccdbc387' # nosh-1.34.tar.gz
             'ceab03a0b164c16b1189e46e1db45e71e83c5612ea01c639d750437cbeb6ff58' # staging.patch
             'e5e90eea4ed0685eccbb6f5435c55100b4ffa53062068d202b0cb96c521c221a' # maintenance-scripts.patch
             '766ae08d97b2d840761132d164bd6bc596c4157470e9ce8b8a6135ea95624ed4' # maintenance.sh
             '2f3a9ee93505534f2db82d71edb694b1c32aa3f4e2880f3d62589a5fe65f062b' # scriptletbuilder.sh
             '429755272a87b062d97dbaa9c146d551d8b20b6ea3670c5803ddb5b789b829b2' # services-dbus.patch
-            '0f79d7e1bdcc41181ebb06b49d347927e67a83fa5682a9a094fa3a2d8ec01c3a' # nosh-run-udev.post_install.extra
 
             'SKIP'
             'SKIP'
@@ -171,11 +169,6 @@ prepare() {
     cd "${srcdir}"/package/debian
     source "${srcdir}"/maintenance.sh
 
-    # add extra install script
-    msg2 "Adding extra install scripts"
-    cp -v "${srcdir}"/nosh-run-udev.post_install.extra "${srcdir}"/package/debian/
-
-    # patch service files
     msg2 "Modifying service files"
     cd "${srcdir}"
     patch -p1 -i "${srcdir}"/services-dbus.patch
