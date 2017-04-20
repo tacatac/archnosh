@@ -38,7 +38,7 @@ pkgname=(
     'nosh-run-openssh-server'
     )               
 pkgver=1.33
-pkgrel=2
+pkgrel=3
 pkgdesc="A suite of system-level utilities for initializing and running a BSD or Linux system, for managing daemons, for managing terminals, and for managing logging."
 arch=('x86_64')
 url="https://jdebp.eu/Softwares/nosh/index.html"
@@ -230,6 +230,7 @@ _package() {
         nosh-exec)
             pkgdesc="Minimal non-shell script processor and various chain-load utilities useful for services"
             depends+=( 'nosh-common')
+            conflicts+=( 'daemontools' 'daemontools-encore' )
             ;;
         nosh-execline-shims)
             pkgdesc="Execline utility shims"
@@ -244,7 +245,7 @@ _package() {
         nosh-service-management)
             pkgdesc="Service and system management utilities"
             depends+=( 'nosh-common')
-            conflicts+=( 'nosh-bundles<=1.30')
+            conflicts+=( 'nosh-bundles<=1.30' 'daemontools' 'daemontools-encore' )
             ;;
         nosh-terminal-management)
             pkgdesc="Virtual terminal, pseudo-terminal, and TUI login tools"
@@ -318,7 +319,7 @@ _package() {
         nosh-run-udev)
             pkgdesc="Run udev as the device manager"
             depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.16' 'nosh-bundles' )
-            optdepends+=( 'systemd: the systemd implementation currently does not work with nosh' 'eudev: for an alternative udev implementation' )
+            optdepends+=( 'systemd: use systemd-udevd directly' 'eudev: alternative udev implementation' )
             conflicts+=('nosh-run-busybox-mdev' 'nosh-run-suckless-mdev' 'nosh-run-vdev')
             install="nosh-run-udev.install"
             ;;
