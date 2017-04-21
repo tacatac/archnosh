@@ -8,9 +8,7 @@ The packaging here closely follows the [Debian packaging](https://jdebp.eu/Softw
 
 With caution! Installing some of the nosh packages provided here can profoundly change the way your system bootstraps and runs services.
 
-Furthermore, the packages have so far been tested on virtual machines with bare minimum installs of early 2017 Archlinux releases and on a personal laptop, where they *do* work for the most part but tailoring to your system will be necessary.
-
-**N.B.: Automatic network configuration is not currently implemented for Archlinux, network interfaces may have to be brought up and configured manually.**
+Furthermore, the packages have so far been tested locally on virtual machines with minimum installs of early 2017 Archlinux releases and on a personal laptop, where they *do* work for the most part but tailoring to your system will be necessary.
 
 *Caveat emptor.*
 
@@ -61,7 +59,7 @@ The following packages are necessary:
 * nosh-terminal-management
 * nosh-bundles
 * nosh-run-via-systemd
-* nosh-run-debian-server-base
+* nosh-run-debian-server-base or nosh-run-debian-desktop-base
 
 Due to Archlinux's default preset *disable* policy (/usr/lib/systemd/system-preset/99-default.preset), you need to enable the following unit:
 
@@ -91,9 +89,9 @@ For a fully nosh-managed system i.e. nosh running as the init process and servic
 * nosh-terminal-management
 * nosh-bundles
 * nosh-run-system-manager
-* nosh-run-udev
+* nosh-run-udev or nosh-run-systemd-udev
 * nosh-run-kernel-vt
-* nosh-run-debian-server-base
+* nosh-run-debian-server-base or nosh-run-debian-desktop-base
 * nosh-run-local-syslog
 * nosh-run-klogd
 
@@ -101,9 +99,9 @@ For a fully nosh-managed system i.e. nosh running as the init process and servic
 
 The above installation assumes udev is the device manager, which is provided by the [systemd](https://www.archlinux.org/packages/core/x86_64/systemd/) package on Archlinux.
 
-The easiest method is to simply use the binaries and configuration files provided by this package to run udev. `nosh-run-udev` will symlink `/usr/bin/udevd` to `/usr/lib/systemd/systemd-udevd` and everything should work transparently. This means all udev configuration rules already set up should work as-is.
+The easiest method is to simply use the binaries and configuration files provided by this package to run udev. The `nosh-run-systemd-udev` will do just that and everything should work transparently. This means all udev configuration rules already set up should work as-is.
 
-Alternatively you may wish to use the `eudev` implementation rather than keeping the systemd package for udev functionality.
+Alternatively you may wish to use the [eudev](https://wiki.gentoo.org/wiki/Eudev) implementation rather than keeping the systemd package for udev functionality.
 
 We will detail the installation of [eudev](https://aur.archlinux.org/packages/eudev/), [libeudev](https://aur.archlinux.org/packages/libeudev/), [eudev-systemd](https://aur.archlinux.org/packages/eudev-systemd/) and [libeudev-systemd](https://aur.archlinux.org/packages/libeudev-systemd/) (available from the AUR) which should provide a drop-in replacement for systemd/udev.
 
@@ -131,10 +129,11 @@ We will detail the installation of [eudev](https://aur.archlinux.org/packages/eu
 
     This will provide some shim systemd binaries and libraries.
 
+The `nosh-run-udev` package will run the `udevd` binary which is provided by eudev.
 
-From there you should have a working udev and some systemd shims which should allow installing most packages without too much trouble.
+From there you will have a working udev and some systemd shims which should allow installing most packages without too much trouble.
 
-Other device manager run-packages are provided: vdev, busybox-mdev and suckless-mdev. You will probably need to account for Archlinux's rather heavy systemd/udev integration in order to use them.
+Run-packages for other device managers are provided: vdev, busybox-mdev and suckless-mdev. You will probably need to account for Archlinux's rather heavy systemd/udev integration in order to use them.
 
 
 ##### virtual terminals
@@ -144,11 +143,20 @@ Rather than kernel virtual terminals, [user-space virtual terminals](https://jde
 The `nosh-execline-shims` package is necessary if you do not have [execline](https://skarnet.org/software/execline/) available.
 
 
-##### base
+##### base presets
 
-`nosh-run-debian-server-base` has currently not been renamed... 
+The `nosh-run-debian-X-base` packages have not currently been renamed but must be used.
 
-It provides essential presets for booting your system. A more featureful `nosh-run-debian-desktop-base` is also available.
+They provides essential presets for booting your system. The "desktop-base" presets are more featureful.
+
+Make sure to check and modify your preset files where necessary.
+
+
+##### networking
+
+Service bundles are available for various network managers, such as Wicd and NetworkManager.
+
+A `dhcpcd@` service is generated for each interface and should be enabled if needed. It is the default configuration mechanism for Archlinux.
 
 
 ##### non-root Xorg
@@ -162,9 +170,9 @@ See [https://wiki.gentoo.org/wiki/Non_root_Xorg](https://wiki.gentoo.org/wiki/No
 
 Various shim packages exist to provide the following:
 
-1. Commands from other service or system managers that will invoke the corresponding nosh management actions, e.g. nosh-debian-shims, nosh-systemd-shims, nosh-upstart-shims...
+1. Commands from other service or system managers that will invoke the corresponding nosh management actions, e.g. nosh-debian-shims, nosh-systemd-shims, nosh-upstart-shims, etc.
 
-2. Utilities which may be provided by other packages, e.g. nosh-execline-shims, nosh-ucspi-tcp-shims, nosh-kbd-shims...
+2. Utilities which may be provided by other packages, e.g. nosh-execline-shims, nosh-ucspi-tcp-shims, nosh-kbd-shims, etc.
 
 ##### troubleshooting
 
