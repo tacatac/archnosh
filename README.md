@@ -4,6 +4,7 @@ This repository provides the build files necessary to integrate the [nosh](https
 
 The packaging here closely follows the [Debian packaging](https://jdebp.eu/Softwares/nosh/debian-binary-packages.html) provided by the author of nosh.
 
+
 ## How do I use it?
 
 With caution! Installing some of the nosh packages provided here can profoundly change the way your system bootstraps and runs services.
@@ -12,9 +13,13 @@ Furthermore, the packages have so far been tested locally on virtual machines wi
 
 *Caveat emptor.*
 
+
 ### The packages
 
 This is a split-package PKGBUILD which will generate several packages, covering the toolset aswell as a service bundle collection which together can provide a complete working system.
+
+Use the latest available released archive, i.e. the latest tagged git commit.
+
 
 #### Dependencies
 
@@ -27,7 +32,8 @@ The make dependencies are the following and require [AUR](https://wiki.archlinux
 * [docbook-xml](https://www.archlinux.org/packages/extra/any/docbook-xml/) (Extra)
 * [docbook-xsl](https://www.archlinux.org/packages/extra/any/docbook-xsl/) (Extra)
 
-For package building in general, ensure the [base-devel](https://www.archlinux.org/groups/x86_64/base-devel/) package is installed.
+For [package building](https://wiki.archlinux.org/index.php/Arch_Build_System) in general, ensure the [base-devel](https://www.archlinux.org/groups/x86_64/base-devel/) package is installed.
+
 
 #### Build the packages
 
@@ -37,13 +43,15 @@ Put the files in a directory and run:
 
 You can then install the generated packages with:
 
-    $ pacman -U <package-name>
+    # pacman -U <package-name>
+
 
 ### Running nosh
 
 Read the [timorous admin's installation how-to](https://jdebp.eu/Softwares/nosh/timorous-admin-installation-how-to.html).
 
 The following describes the two expected common setups. Both assume you are running a default systemd-managed install.
+
 
 #### nosh service manager only: nosh-run-via-systemd
 
@@ -78,6 +86,9 @@ It's probably simpler to stick to just one of these methods.
 
 Creating preset files for these units will also ensure their enabled/disabled status in case of package upgrades.
 
+Also make sure to check the presets provided by the chosen `nosh-run-debian-X-base` package, they will activate *some* services by default.
+
+
 #### nosh system and service manager: nosh-run-system-manager
 
 For a fully nosh-managed system i.e. nosh running as the init process and service manager, install the following packages:
@@ -94,6 +105,13 @@ For a fully nosh-managed system i.e. nosh running as the init process and servic
 * nosh-run-debian-server-base or nosh-run-debian-desktop-base
 * nosh-run-local-syslog
 * nosh-run-klogd
+
+Installing these packages will raise a lot of the following errors:
+
+    reset: ERROR: connect: /run/service-manager/control: No such file or directory
+
+This is due to the fact that nosh isn't actually properly running yet but is not an issue. The system will work properly after a reboot (`system-control reboot`).
+
 
 ##### udev
 
@@ -136,27 +154,35 @@ From there you will have a working udev and some systemd shims which should allo
 Run-packages for other device managers are provided: vdev, busybox-mdev and suckless-mdev. You will probably need to account for Archlinux's rather heavy systemd/udev integration in order to use them.
 
 
-##### virtual terminals
-
-Rather than kernel virtual terminals, [user-space virtual terminals](https://jdebp.eu/Softwares/nosh/user-vt-screenshots.html) may be used by installing `nosh-run-user-vt`.
-
-The `nosh-execline-shims` package is necessary if you do not have [execline](https://skarnet.org/software/execline/) available.
-
-
 ##### base presets
 
-The `nosh-run-debian-X-base` packages have not currently been renamed but must be used.
+The `nosh-run-debian-X-base` packages have not currently been renamed but one of them must be used.
 
-They provides essential presets for booting your system. The "desktop-base" presets are more featureful.
+They provide essential presets for booting your system. The "desktop-base" presets are more featureful.
 
-Make sure to check and modify your preset files where necessary.
+Make sure to check and modify your preset files where necessary in `/usr/share/system-control/presets`.
+
+
+##### per-user service management
+
+For user-controlled services, a [per-user manager](https://jdebp.eu/Softwares/nosh/guide/per-user-manager.html) can be enabled for user *my_user* with:
+
+    # system-control enable user@my_user
+
+This will start [per-user service management](https://jdebp.eu/Softwares/nosh/guide/per-user-system-services.html) for *my_user* on system boot.
+
+User service bundles can be placed under `$HOME/.config/service-bundles/services/` and controlled with:
+
+    $ system-control --user <command>
 
 
 ##### networking
 
 Service bundles are available for various network managers, such as Wicd and NetworkManager.
 
-A `dhcpcd@` service is generated for each interface and should be enabled if needed. It is the default configuration mechanism for Archlinux.
+A `dhcpcd@` service is generated for each interface and is preset enabled by `90-linux-static-networking.preset`.
+
+To activate it, add a line reading `ifconfig_<your-interface>=DHCP` in `/etc/system-control/convert/rc.conf`.
 
 
 ##### non-root Xorg
@@ -165,20 +191,33 @@ Since we are not using systemd's `logind`, starting X as an unpriviledged user r
 
 See [https://wiki.gentoo.org/wiki/Non_root_Xorg](https://wiki.gentoo.org/wiki/Non_root_Xorg) for further details.
 
+[elogind](https://github.com/elogind/elogind) might conceivably be used to achieve systemd behaviour here.
+
 
 ##### shims
 
-Various shim packages exist to provide the following:
+Various "shim" packages exist to provide the following:
 
 1. Commands from other service or system managers that will invoke the corresponding nosh management actions, e.g. nosh-debian-shims, nosh-systemd-shims, nosh-upstart-shims, etc.
 
 2. Utilities which may be provided by other packages, e.g. nosh-execline-shims, nosh-ucspi-tcp-shims, nosh-kbd-shims, etc.
+
+
+##### virtual terminals
+
+Rather than kernel virtual terminals, [user-space virtual terminals](https://jdebp.eu/Softwares/nosh/user-vt-screenshots.html) may be used by installing `nosh-run-user-vt`.
+
+The `nosh-execline-shims` package is necessary if you do not have [execline](https://skarnet.org/software/execline/) available.
+
 
 ##### troubleshooting
 
 [https://jdebp.eu/Softwares/nosh/guide/troubleshooting.html](https://jdebp.eu/Softwares/nosh/guide/troubleshooting.html)
 
 The link above may come in useful.
+
+A rescue mode is available for nosh by appending "s" to the kernel boot parameters.
+
 
 ## Some nosh guidelines
 
@@ -197,6 +236,7 @@ To these features nosh [adds](https://jdebp.eu/Softwares/nosh/guide/new-interfac
 * terminal management
 * service ordering and interdependency through "service bundles" which allows for system "targets" similar to systemd
 * restart scripts
+* etc.
 
 For a general presentation you may read the following:
 
@@ -245,11 +285,55 @@ The `service` directory contains the scripts used to run the service. `service/e
 
 The `supervise` directory contains the control/status API files.
 
+
+### logging
+
+Logging is a service on par with any other. In general one logging service is associated with each daemon to capture and manage its output (log rotation, capping etc.) although fan-in from multiple services to one logging service is also possible.
+
+The daemontools [assumption](https://jdebp.eu/FGA/unix-daemon-design-mistakes-to-avoid.html) is that daemons log to their standard error and/or standard output *not* to syslog. Specialised logging tools can therefore be used to manage this output.
+
+More generally, daemons are expected to be as simple as possible in the sense of using standard interfaces and not implementing activities such as logging, socket management, resource limiting, etc. which could be dealt with by external tools, typically the daemontools family toolsets and other service managers (see the [same argument for systemd's "new-style"](https://www.freedesktop.org/software/systemd/man/daemon.html)).
+
+In practice nosh [connects](https://jdebp.eu/Softwares/nosh/guide/log-service-plumbing.html) a service's standard output and error to the service pointed to by the "log" directory of the service bundle. Below are some excerpts of the `lsof` command to illustrate:
+
+    COMMAND   PID     USER   FD      TYPE             DEVICE SIZE/OFF   NODE NAME
+
+    # the sshd service, file descriptors 1 and 2 refer to pipe 17119
+    tcp-socke 976     root  cwd       DIR              254,0     4096 198091 /var/sv/sshd/service
+    tcp-socke 976     root  txt       REG              254,0   212968  62095 /usr/bin/tcp-socket-accept
+    tcp-socke 976     root    0r     FIFO               0,10      0t0  17188 pipe
+    tcp-socke 976     root    1w     FIFO               0,10      0t0  17119 pipe
+    tcp-socke 976     root    2w     FIFO               0,10      0t0  17119 pipe
+
+    # the cyclog@sshd service, file descriptor 0 refers to pipe 17119: reading sshd's stdout and stderr
+    cyclog    963 sshd-log  txt       REG              254,0   212968  63713 /usr/bin/cyclog
+    cyclog    963 sshd-log    0r     FIFO               0,10      0t0  17119 pipe
+    cyclog    963 sshd-log    1w     FIFO               0,10      0t0   8409 pipe
+    cyclog    963 sshd-log    2w     FIFO               0,10      0t0   8409 pipe
+    cyclog    963 sshd-log    6w      REG              254,0        0 202749 /var/log/sv/sshd/current
+
+    # note that cyclog@sshd's own stdout and stderr point to pipe 8409 which is actually the system-wide logger's input
+    cyclog    163     root  txt       REG              254,0   130984  63711 /usr/bin/system-manager
+    cyclog    163     root    0r     FIFO               0,10      0t0   8409 pipe
+    cyclog    163     root    1u      CHR                5,1      0t0   6547 /dev/console (deleted)
+    cyclog    163     root    2u      CHR                5,1      0t0   6547 /dev/console (deleted)
+    cyclog    163     root    5w      REG               0,18    81718   8433 /run/system-manager/log/current
+
+    # ... just as init's own stdout and stderr also point to the system-wide cyclog
+    init        1     root  txt       REG              254,0   130984  63711 /usr/bin/system-manager
+    init        1     root    0r      CHR                1,3      0t0   6465 /dev/null
+    init        1     root    1w     FIFO               0,10      0t0   8409 pipe
+    init        1     root    2w     FIFO               0,10      0t0   8409 pipe
+
+The "log" directory name is a bit misleading insofar as one could chain anything to the service and create an arbitrarily long pipe chain. That being said, service `run` files already use chain-loading mechanisms so it generally really is a logging service that is last in the chain.
+
+
 ### system-control
 
 [system-control](https://jdebp.eu/Softwares/nosh/guide/system-control.html) is the workhorse command for the system from a user perspective.
 
 It provides high-level system-wide and per-user service management (start/stop, enable/disable etc.) aswell as system management (reboot, poweroff etc.) and various other specialised commands for e.g. converting systemd-style unit files to service bundles.
+
 
 ### Converting systemd unit files
 
@@ -259,6 +343,7 @@ It also understands extended syntax to express service bundle-specific functiona
 
 In other words, one can benefit from existing systemd unit files through automatic conversion in many cases.
 
+
 ## Repositories
 
 This repository is publicly available at the following locations:
@@ -266,6 +351,7 @@ This repository is publicly available at the following locations:
 1. [https://framagit.org/taca/archnosh](https://framagit.org/taca/archnosh)
 2. [https://repo.or.cz/archnosh.git](https://repo.or.cz/archnosh.git)
 3. [https://github.com/tacatac/archnosh](https://github.com/tacatac/archnosh)
+
 
 ## License
 
