@@ -16,7 +16,7 @@ Furthermore, the packages have so far been tested locally on virtual machines wi
 
 ### The packages
 
-This is a split-package PKGBUILD which will generate several packages, covering the toolset aswell as a service bundle collection which together can provide a complete working system.
+This is a [split-package](https://www.archlinux.org/pacman/PKGBUILD.5.html#_package_splitting) PKGBUILD which will generate packages covering the toolset aswell as a service bundle collection which together can provide a complete working system.
 
 Use the latest available released archive, i.e. the latest tagged git commit.
 
@@ -50,12 +50,12 @@ You can then install the generated packages with:
 
 Read the [timorous admin's installation how-to](https://jdebp.eu/Softwares/nosh/timorous-admin-installation-how-to.html).
 
-The following describes the two expected common setups. Both assume you are running a default systemd-managed install.
+The following describes the two expected common setups.
+
+Both assume that you are running the default [systemd](https://wiki.archlinux.org/index.php/Systemd)-managed install.
 
 
 #### nosh service manager only: nosh-run-via-systemd
-
-The current default system and service manager for Archlinux is [systemd](https://wiki.archlinux.org/index.php/Systemd).
 
 It is possible to run nosh as a service manager alongside systemd.
 
@@ -69,7 +69,7 @@ The following packages are necessary:
 * nosh-run-via-systemd
 * nosh-run-debian-server-base or nosh-run-debian-desktop-base
 
-Due to Archlinux's default preset *disable* policy (/usr/lib/systemd/system-preset/99-default.preset), you need to enable the following unit:
+Due to Archlinux's default preset *disable* policy (`/usr/lib/systemd/system-preset/99-default.preset`), you need to enable the following unit:
 
     # systemctl enable service-manager.socket
 
@@ -78,9 +78,9 @@ Then you should enable one or both of:
 * system-control-normal.service
 * service-manager-svscan.path
 
-`system-control-normal.service` uses nosh targets to bring up enabled services. Simply run `system-control enable <service>` and `systemctl disable <service>` for its equivalent in order to switch management of the service over to nosh.
+`system-control-normal.service` uses nosh [targets](https://jdebp.eu/Softwares/nosh/guide/anatomy-of-system-target.html) to bring up enabled services. Simply run `system-control enable <service>` and `systemctl disable <service>` for its equivalent in order to switch management of the service over to nosh.
 
-`service-manager-svscan.path` will scan and bring up any service bundle you place in the /service directory (which you will have to create), effectively enabling it. This is the more typical daemontools [approach](https://cr.yp.to/daemontools/faq/create.html#why).
+`service-manager-svscan.path` will scan and bring up any service bundle you place in the `/service` directory (which you will have to create), effectively enabling it. This is the more typical daemontools [approach](https://cr.yp.to/daemontools/faq/create.html#why).
 
 It's probably simpler to stick to just one of these methods.
 
@@ -91,7 +91,7 @@ Also make sure to check the presets provided by the chosen `nosh-run-debian-X-ba
 
 #### nosh system and service manager: nosh-run-system-manager
 
-For a fully nosh-managed system i.e. nosh running as the init process and service manager, install the following packages:
+For a fully nosh-managed system, i.e. nosh running as the init process and service manager, install the following packages:
 
 * nosh-common
 * nosh-exec
@@ -113,11 +113,14 @@ Installing these packages will raise a lot of the following errors:
 This is due to the fact that nosh isn't actually properly running yet but is not an issue. The system will work properly after a reboot (`system-control reboot`).
 
 
-##### udev
+##### systemd-udev
 
-The above installation assumes udev is the device manager, which is provided by the [systemd](https://www.archlinux.org/packages/core/x86_64/systemd/) package on Archlinux.
+The installation above assumes udev is the device manager, which is provided by the [systemd](https://www.archlinux.org/packages/core/x86_64/systemd/) package on Archlinux.
 
-The easiest method is to simply use the binaries and configuration files provided by this package to run udev. The `nosh-run-systemd-udev` will do just that and everything should work transparently. This means all udev configuration rules already set up should work as-is.
+The easiest method is to simply use the binaries and configuration files provided by this package to run udev. The `nosh-run-systemd-udev` package will do just that and everything should work transparently. This means all udev configuration rules already set up should work as-is.
+
+
+##### eudev
 
 Alternatively you may wish to use the [eudev](https://wiki.gentoo.org/wiki/Eudev) implementation rather than keeping the systemd package for udev functionality.
 
@@ -129,9 +132,9 @@ We will detail the installation of [eudev](https://aur.archlinux.org/packages/eu
 
         # pacman -dd -S libeudev
 
-    The `-dd` (or `--nodeps`) repeated option skips dependency checking. You will be providing replacements for these dependencies.
+    The `-d` (or `--nodeps`) repeated option skips dependency checking. You will be providing replacements for these dependencies.
 
-    It might also fail to install due to the following pre-existing files: `/usr/include/libudev.h` and `/usr/lib/pkgconfig/libudev.pc`. Delete these manually.
+    It might also fail to install due to the following pre-existing files: `/usr/include/libudev.h` and `/usr/lib/pkgconfig/libudev.pc`. Remove these manually.
 
 2. Install libeudev-systemd
 
@@ -147,7 +150,7 @@ We will detail the installation of [eudev](https://aur.archlinux.org/packages/eu
 
     This will provide some shim systemd binaries and libraries.
 
-The `nosh-run-udev` package will run the `udevd` binary which is provided by eudev.
+The `nosh-run-udev` package will run the `udevd` binary, provided by eudev here.
 
 From there you will have a working udev and some systemd shims which should allow installing most packages without too much trouble.
 
@@ -158,7 +161,7 @@ Run-packages for other device managers are provided: vdev, busybox-mdev and suck
 
 The `nosh-run-debian-X-base` packages have not currently been renamed but one of them must be used.
 
-They provide essential presets for booting your system. The "desktop-base" presets are more featureful.
+They provide essential presets for booting your system. The "desktop-base" extends the "server-base" presets.
 
 Make sure to check and modify your preset files where necessary in `/usr/share/system-control/presets`.
 
@@ -180,7 +183,7 @@ User service bundles can be placed under `$HOME/.config/service-bundles/services
 
 Service bundles are available for various network managers, such as Wicd and NetworkManager.
 
-A `dhcpcd@` service is generated for each interface and is preset enabled by `90-linux-static-networking.preset`.
+A `dhcpcd@` service (the [default enabled tool](https://wiki.archlinux.org/index.php/Installation_guide#Connect_to_the_Internet) for wired devices on Archlinux) is generated for each interface and is preset enabled by `90-linux-static-networking.preset`.
 
 To activate it, add a line reading `ifconfig_<your-interface>=DHCP` in `/etc/system-control/convert/rc.conf`.
 
@@ -290,11 +293,11 @@ The `supervise` directory contains the control/status API files.
 
 Logging is a service on par with any other. In general one logging service is associated with each daemon to capture and manage its output (log rotation, capping etc.) although fan-in from multiple services to one logging service is also possible.
 
-The daemontools [assumption](https://jdebp.eu/FGA/unix-daemon-design-mistakes-to-avoid.html) is that daemons log to their standard error and/or standard output *not* to syslog. Specialised logging tools can therefore be used to manage this output.
+The daemontools [assumption](https://jdebp.eu/FGA/unix-daemon-design-mistakes-to-avoid.html) is that daemons log to their standard error, *not* to syslog. Specialised logging tools can then be used to manage this output.
 
-More generally, daemons are expected to be as simple as possible in the sense of using standard interfaces and not implementing activities such as logging, socket management, resource limiting, etc. which could be dealt with by external tools, typically the daemontools family toolsets and other service managers (see the [same argument for systemd's "new-style"](https://www.freedesktop.org/software/systemd/man/daemon.html)).
+More generally, daemons are expected not to implement functions such as dropping priviledges, socket management, resource limiting, etc. which could be provided by external tools, typically the daemontools family toolsets and other service managers (see the same argument for systemd's ["new-style"](https://www.freedesktop.org/software/systemd/man/daemon.html) daemons).
 
-In practice nosh [connects](https://jdebp.eu/Softwares/nosh/guide/log-service-plumbing.html) a service's standard output and error to the service pointed to by the "log" directory of the service bundle. Below are some excerpts of the `lsof` command to illustrate:
+In practice, nosh [connects](https://jdebp.eu/Softwares/nosh/guide/log-service-plumbing.html) a service's standard output and error to the service pointed to by the "log" directory of the service bundle. Below are some excerpts of the `lsof` command to illustrate:
 
     COMMAND   PID     USER   FD      TYPE             DEVICE SIZE/OFF   NODE NAME
 
@@ -325,12 +328,12 @@ In practice nosh [connects](https://jdebp.eu/Softwares/nosh/guide/log-service-pl
     init        1     root    1w     FIFO               0,10      0t0   8409 pipe
     init        1     root    2w     FIFO               0,10      0t0   8409 pipe
 
-The "log" directory name is a bit misleading insofar as one could chain anything to the service and create an arbitrarily long pipe chain. That being said, service `run` files already use chain-loading mechanisms so it generally really is a logging service that is last in the chain.
+The "log" directory name is a bit misleading insofar as one could chain anything to the service and create an arbitrarily long pipe chain. That being said, service `run` files already use [chain-loading mechanisms](https://jdebp.eu/Softwares/nosh/guide/chain-loading-cheatsheet.html) so it generally really is a logging service that is ultimately piped to.
 
 
 ### system-control
 
-[system-control](https://jdebp.eu/Softwares/nosh/guide/system-control.html) is the workhorse command for the system from a user perspective.
+[system-control](https://jdebp.eu/Softwares/nosh/guide/system-control.html) is the system workhorse command from a user perspective.
 
 It provides high-level system-wide and per-user service management (start/stop, enable/disable etc.) aswell as system management (reboot, poweroff etc.) and various other specialised commands for e.g. converting systemd-style unit files to service bundles.
 
