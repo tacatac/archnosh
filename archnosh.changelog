@@ -1,0 +1,15 @@
+1.34-1
+* Added this changelog
+* Separated nosh-run-systemd-udev and nosh-run-udev
+* Updated and expanded the README
+
+1.33-3
+* Added dependency information for conflicts with daemontools{,-encore} packages.
+* Corrected nosh-run-udev optdepends information
+
+1.33-2
+* Fixed issue with nosh-run-system-manager.install: missing post_install.
+
+1.33-1
+* First release.
+
