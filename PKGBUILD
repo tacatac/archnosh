@@ -55,7 +55,7 @@ replaces=()
 backup=()
 options=()
 install=""
-changelog=""
+changelog="archnosh.changelog"
 
 # packages with maintenance scripts
 _pkginstalls=( 
@@ -115,7 +115,7 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         )
 noextract=()
 sha256sums=(
-            '1d46922c3873421059daa9913516521999d06247d958fb8b0a92e339ccdbc387' # nosh-1.34.tar.gz
+            '89ff528603733efed3f03ce7c933d035be0959847f63ebf19a9619feb2c7a274' # nosh-1.34.tar.gz
             'ceab03a0b164c16b1189e46e1db45e71e83c5612ea01c639d750437cbeb6ff58' # staging.patch
             'e5e90eea4ed0685eccbb6f5435c55100b4ffa53062068d202b0cb96c521c221a' # maintenance-scripts.patch
             '766ae08d97b2d840761132d164bd6bc596c4157470e9ce8b8a6135ea95624ed4' # maintenance.sh
@@ -146,7 +146,7 @@ validpgpkeys=()
 
 prepare() {
     
-	# ncurses headers different to Debian layout, patch out the ncursesw directory in cpp Includes
+    # ncurses headers different to Debian layout, patch out the ncursesw directory in cpp Includes
     # taken from https://github.com/atweiden/pkgbuilds/blob/master/nosh/PKGBUILD
 	msg2 "Fix ncurses header import issues"
     cd "${srcdir}"/source
@@ -193,7 +193,7 @@ build() {
 }
 
 check() {
-	# no test available for the moment
+    # no test available for the moment
     msg "Checking skipped..."
 }
 
