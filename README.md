@@ -185,8 +185,12 @@ Service bundles are available for various network managers, such as Wicd and Net
 
 A `dhcpcd@` service (the [default enabled tool](https://wiki.archlinux.org/index.php/Installation_guide#Connect_to_the_Internet) for wired devices on Archlinux) is generated for each interface and is preset enabled by `90-linux-static-networking.preset`.
 
-To activate it, add a line reading `ifconfig_<your-interface>=DHCP` in `/etc/system-control/convert/rc.conf`.
+To activate it, add the following lines in `/etc/system-control/convert/rc.conf`:
+    
+    dhclient_program=dhcpcd
+    ifconfig_<your-interface>=DHCP
 
+Don't forget to run `redo all` after applying configuration changes. Check `/etc/system-control/convert/static-networking` to make sure your interface is set to `on`.
 
 ##### non-root Xorg
 
