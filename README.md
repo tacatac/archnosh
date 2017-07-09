@@ -185,7 +185,7 @@ Service bundles are available for various network managers, such as Wicd and Net
 
 A `dhcpcd@` service (the [default enabled tool](https://wiki.archlinux.org/index.php/Installation_guide#Connect_to_the_Internet) for wired devices on Archlinux) is generated for each interface and is preset enabled by `90-linux-static-networking.preset`.
 
-To activate it, add the following lines in `/etc/system-control/convert/rc.conf`:
+To activate it, add the following lines in `/etc/rc.conf` or `/etc/rc.conf.local`:
     
     dhclient_program=dhcpcd
     ifconfig_<your-interface>=DHCP
@@ -217,13 +217,17 @@ Rather than kernel virtual terminals, [user-space virtual terminals](https://jde
 The `nosh-execline-shims` package is necessary if you do not have [execline](https://skarnet.org/software/execline/) available.
 
 
-##### troubleshooting
+##### troubleshooting and exceptional boot modes
 
 [https://jdebp.eu/Softwares/nosh/guide/troubleshooting.html](https://jdebp.eu/Softwares/nosh/guide/troubleshooting.html)
 
 The link above may come in useful.
 
-A rescue mode is available for nosh by appending "s" to the kernel boot parameters.
+In certain cases your system may need to be booted in an [exceptional mode](https://jdebp.eu/FGA/emergency-and-rescue-mode-bootstrap.html).
+
+* A *rescue mode* is available for nosh by appending "s" to the kernel boot parameters.
+
+* An *emergency mode* is available by appending "b" to the kernel boot parameters.
 
 
 ## Some nosh guidelines
