@@ -163,7 +163,9 @@ The `nosh-run-debian-X-base` packages have not currently been renamed but one of
 
 They provide essential presets for booting your system. The "desktop-base" extends the "server-base" presets.
 
-Make sure to check and modify your preset files where necessary in `/usr/share/system-control/presets`.
+Make sure to check, modify or add preset files where necessary in `/usr/share/system-control/presets`.
+
+The `90-*-boot-essentials.preset` files, in particular, contain services for [mounting filesystems](https://jdebp.eu/Softwares/nosh/guide/fstab.html), for loading necessary kernel modules, service targets to achieve etc.
 
 
 ##### per-user service management
@@ -192,11 +194,13 @@ To activate it, add the following lines in `/etc/rc.conf` or `/etc/rc.conf.local
 
 Don't forget to run `redo all` after applying configuration changes. Check `/etc/system-control/convert/static-networking` to make sure your interface is set to `on`.
 
-##### non-root Xorg
+##### non-root Xorg and device access
 
 Since we are not using systemd's `logind`, starting X as an unpriviledged user requires adding that user to the "input" and "video" groups.
 
 See [https://wiki.gentoo.org/wiki/Non_root_Xorg](https://wiki.gentoo.org/wiki/Non_root_Xorg) for further details.
+
+In the same vein, other device access may no longer work for unpriviledged users. You will probably have to add users to the "audio" group to use a soundcard for instance.
 
 [elogind](https://github.com/elogind/elogind) might conceivably be used to achieve systemd behaviour here.
 
