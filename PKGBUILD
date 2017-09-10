@@ -38,7 +38,7 @@ pkgname=(
     'nosh-run-debian-desktop-base'
     'nosh-run-openssh-server'
     )               
-pkgver=1.34
+pkgver=1.35
 pkgrel=1
 pkgdesc="A suite of system-level utilities for initializing and running a BSD or Linux system, for managing daemons, for managing terminals, and for managing logging."
 arch=('x86_64')
@@ -115,12 +115,12 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         )
 noextract=()
 sha256sums=(
-            '89ff528603733efed3f03ce7c933d035be0959847f63ebf19a9619feb2c7a274' # nosh-1.34.tar.gz
+            'df1f320d353459580ae20d1d62115de375398916a1fe3a7746a6fc89acfb7c75' # nosh-1.35.tar.gz
             'ceab03a0b164c16b1189e46e1db45e71e83c5612ea01c639d750437cbeb6ff58' # staging.patch
             'e5e90eea4ed0685eccbb6f5435c55100b4ffa53062068d202b0cb96c521c221a' # maintenance-scripts.patch
             '766ae08d97b2d840761132d164bd6bc596c4157470e9ce8b8a6135ea95624ed4' # maintenance.sh
             '2f3a9ee93505534f2db82d71edb694b1c32aa3f4e2880f3d62589a5fe65f062b' # scriptletbuilder.sh
-            '429755272a87b062d97dbaa9c146d551d8b20b6ea3670c5803ddb5b789b829b2' # services-dbus.patch
+            'b7bf62d27ffcf7e300616b0b3a56667ffd910c9a2a36914d3a05c44c398f8d7a' # services-dbus.patch
 
             'SKIP'
             'SKIP'
