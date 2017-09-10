@@ -20,6 +20,8 @@ This is a [split-package](https://www.archlinux.org/pacman/PKGBUILD.5.html#_pack
 
 Use the latest available released archive, i.e. the latest tagged git commit.
 
+This README applies to the latest release.
+
 
 #### Dependencies
 
@@ -185,14 +187,18 @@ User service bundles can be placed under `$HOME/.config/service-bundles/services
 
 Service bundles are available for various network managers, such as Wicd and NetworkManager.
 
+Native network configuration is also [available](https://jdebp.eu/Softwares/nosh/guide/networking.html).
+
+It can be achieved by writing a [Debian-style](https://wiki.debian.org/NetworkConfiguration) `/etc/network/interfaces` file or directly in [FreeBSD-style](https://www.freebsd.org/doc/handbook/config-network-setup.html) within `/etc/rc.conf`.
+
 A `dhcpcd@` service (the [default enabled tool](https://wiki.archlinux.org/index.php/Installation_guide#Connect_to_the_Internet) for wired devices on Archlinux) is generated for each interface and is preset enabled by `90-linux-static-networking.preset`.
 
-To activate it, add the following lines in `/etc/rc.conf` or `/etc/rc.conf.local`:
-    
-    dhclient_program=dhcpcd
-    ifconfig_<your-interface>=DHCP
+It should be enabled automatically (on interfaces configured with dhcp of course). The discovery script will detect `dhclient`, `udhcpc` and `dhcpcd`. You can manually set your client in `/etc/rc.conf` or `/etc/rc.conf.local` with the `dhclient_program` variable.
 
-Don't forget to run `redo all` after applying configuration changes. Check `/etc/system-control/convert/static-networking` to make sure your interface is set to `on`.
+For interfaces managed by `ifconfig@` scripts, the [`net-tools`](https://www.archlinux.org/packages/core/x86_64/net-tools/) package needs to be installed to provide the `ifconfig` binary.
+
+Don't forget to run `redo all` after applying configuration changes. Check `/etc/system-control/convert/static-networking` to make sure the desired services for your interface are set to `on`.
+
 
 ##### non-root Xorg and device access
 
@@ -225,7 +231,7 @@ The `nosh-execline-shims` package is necessary if you do not have [execline](htt
 
 [https://jdebp.eu/Softwares/nosh/guide/troubleshooting.html](https://jdebp.eu/Softwares/nosh/guide/troubleshooting.html)
 
-The link above may come in useful.
+The link above may come in useful. A [gazetteer](https://jdebp.eu/Softwares/nosh/guide/gazetteer.html) is also available to find the location of relevant files.
 
 In certain cases your system may need to be booted in an [exceptional mode](https://jdebp.eu/FGA/emergency-and-rescue-mode-bootstrap.html).
 
