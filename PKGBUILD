@@ -39,7 +39,7 @@ pkgname=(
     'nosh-run-openssh-server'
     )               
 pkgver=1.35
-pkgrel=1
+pkgrel=2
 pkgdesc="A suite of system-level utilities for initializing and running a BSD or Linux system, for managing daemons, for managing terminals, and for managing logging."
 arch=('x86_64')
 url="https://jdebp.eu/Softwares/nosh/index.html"
@@ -228,7 +228,7 @@ _package() {
         nosh-exec)
             pkgdesc="Minimal non-shell script processor and various chain-load utilities useful for services"
             depends+=( 'nosh-common')
-            conflicts+=( 'daemontools' 'daemontools-encore' )
+            conflicts+=( 'daemontools' 'daemontools-encore' 'nosh-bundles<=1.33')
             ;;
         nosh-execline-shims)
             pkgdesc="Execline utility shims"
@@ -242,7 +242,7 @@ _package() {
             ;;
         nosh-service-management)
             pkgdesc="Service and system management utilities"
-            depends+=( 'nosh-common')
+            depends+=( 'nosh-common' 'glibc>=2.13')
             conflicts+=( 'nosh-bundles<=1.30' 'daemontools' 'daemontools-encore' )
             ;;
         nosh-terminal-management)
@@ -301,7 +301,7 @@ _package() {
             ;;
         nosh-bundles)
             pkgdesc="Service bundles"
-            depends+=( 'nosh-common' 'nosh-service-management>=1.33' 'nosh-exec>=1.32' 'nosh-terminal-management>=1.22' 'shadow' )
+            depends+=( 'nosh-common' 'nosh-service-management>=1.34' 'nosh-exec>=1.34' 'nosh-terminal-management>=1.22' 'shadow' )
             install="nosh-bundles.install"
             ;;
         nosh-run-via-systemd)
@@ -381,13 +381,13 @@ _package() {
         nosh-run-debian-server-base)
             pkgdesc="Run the local syslog service"
             depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.33' 'nosh-bundles>=1.33' 'nosh-terminal-management' )
-            conflicts+=( 'nosh-run-desktop-base' 'nosh-bundles<=1.32')
+            conflicts+=( 'nosh-run-debian-desktop-base' 'nosh-bundles<=1.32')
             install="nosh-run-debian-server-base.install"
             ;;  
         nosh-run-debian-desktop-base)
             pkgdesc="Run the local syslog service"
             depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.33' 'nosh-bundles>=1.33' 'nosh-terminal-management' )
-            conflicts+=( 'nosh-run-server-base' 'nosh-bundles<=1.32')
+            conflicts+=( 'nosh-run-debian-server-base' 'nosh-bundles<=1.32')
             install="nosh-run-debian-desktop-base.install"
             ;;  
         nosh-run-openssh-server)
