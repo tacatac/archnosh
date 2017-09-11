@@ -189,7 +189,7 @@ Service bundles are available for various network managers, such as Wicd and Net
 
 Native network configuration is also [available](https://jdebp.eu/Softwares/nosh/guide/networking.html).
 
-It can be achieved by writing a [Debian-style](https://wiki.debian.org/NetworkConfiguration) `/etc/network/interfaces` file or directly in [FreeBSD-style](https://www.freebsd.org/doc/handbook/config-network-setup.html) within `/etc/rc.conf`.
+It can be achieved, via the [rc.conf amalgamation](https://jdebp.eu/Softwares/nosh/guide/rcconf-amalgamation.html) mechanism, by writing a [Debian-style](https://wiki.debian.org/NetworkConfiguration) `/etc/network/interfaces` file or directly in [FreeBSD-style](https://www.freebsd.org/doc/handbook/config-network-setup.html) within `/etc/rc.conf`.
 
 A `dhcpcd@` service (the [default enabled tool](https://wiki.archlinux.org/index.php/Installation_guide#Connect_to_the_Internet) for wired devices on Archlinux) is generated for each interface and is preset enabled by `90-linux-static-networking.preset`.
 
