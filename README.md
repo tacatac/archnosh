@@ -193,7 +193,7 @@ It can be achieved, via the [rc.conf amalgamation](https://jdebp.eu/Softwares/no
 
 A `dhcpcd@` service (the [default enabled tool](https://wiki.archlinux.org/index.php/Installation_guide#Connect_to_the_Internet) for wired devices on Archlinux) is generated for each interface and is preset enabled by `90-linux-static-networking.preset`.
 
-It should be enabled automatically (on interfaces configured with dhcp of course). The discovery script will detect `dhclient`, `udhcpc` and `dhcpcd`. You can manually set your client in `/etc/rc.conf` or `/etc/rc.conf.local` with the `dhclient_program` variable.
+It should be enabled automatically (on interfaces configured with dhcp of course). The discovery script will detect [dhclient](https://www.isc.org/downloads/dhcp/), [udhcpc](https://udhcp.busybox.net/) and [dhcpcd](https://roy.marples.name/projects/dhcpcd). You can manually set your client in `/etc/rc.conf` or `/etc/rc.conf.local` with the `dhclient_program` variable.
 
 For interfaces managed by `ifconfig@` scripts, the [`net-tools`](https://www.archlinux.org/packages/core/x86_64/net-tools/) package needs to be installed to provide the `ifconfig` binary.
 
