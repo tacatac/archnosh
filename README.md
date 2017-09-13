@@ -195,7 +195,7 @@ A `dhcpcd@` service (the [default enabled tool](https://wiki.archlinux.org/index
 
 It should be enabled automatically (on interfaces configured with dhcp of course). The discovery script will detect [dhclient](https://www.isc.org/downloads/dhcp/), [udhcpc](https://udhcp.busybox.net/) and [dhcpcd](https://roy.marples.name/projects/dhcpcd). You can manually set your client in `/etc/rc.conf` or `/etc/rc.conf.local` with the `dhclient_program` variable.
 
-For interfaces managed by `ifconfig@` scripts, the [`net-tools`](https://www.archlinux.org/packages/core/x86_64/net-tools/) package needs to be installed to provide the `ifconfig` binary.
+For interfaces managed by `ifconfig@` scripts, the [net-tools](https://www.archlinux.org/packages/core/x86_64/net-tools/) package needs to be installed to provide the `ifconfig` binary.
 
 Don't forget to run `redo all` after applying configuration changes. Check `/etc/system-control/convert/static-networking` to make sure the desired services for your interface are set to `on`.
 
@@ -229,9 +229,7 @@ The `nosh-execline-shims` package is necessary if you do not have [execline](htt
 
 ##### troubleshooting and exceptional boot modes
 
-[https://jdebp.eu/Softwares/nosh/guide/troubleshooting.html](https://jdebp.eu/Softwares/nosh/guide/troubleshooting.html)
-
-The link above may come in useful. A [gazetteer](https://jdebp.eu/Softwares/nosh/guide/gazetteer.html) is also available to find the location of relevant files.
+A [troubleshooting](https://jdebp.eu/Softwares/nosh/guide/troubleshooting.html) page is available for potential issues aswell as a [gazetteer](https://jdebp.eu/Softwares/nosh/guide/gazetteer.html) to find the location of relevant files.
 
 In certain cases your system may need to be booted in an [exceptional mode](https://jdebp.eu/FGA/emergency-and-rescue-mode-bootstrap.html).
 
