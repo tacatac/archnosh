@@ -39,7 +39,7 @@ pkgname=(
     'nosh-run-openssh-server'
     )               
 pkgver=1.35
-pkgrel=2
+pkgrel=3
 pkgdesc="A suite of system-level utilities for initializing and running a BSD or Linux system, for managing daemons, for managing terminals, and for managing logging."
 arch=('x86_64')
 url="https://jdebp.eu/Softwares/nosh/index.html"
@@ -120,7 +120,7 @@ sha256sums=(
             'e5e90eea4ed0685eccbb6f5435c55100b4ffa53062068d202b0cb96c521c221a' # maintenance-scripts.patch
             '766ae08d97b2d840761132d164bd6bc596c4157470e9ce8b8a6135ea95624ed4' # maintenance.sh
             '2f3a9ee93505534f2db82d71edb694b1c32aa3f4e2880f3d62589a5fe65f062b' # scriptletbuilder.sh
-            'b7bf62d27ffcf7e300616b0b3a56667ffd910c9a2a36914d3a05c44c398f8d7a' # services-dbus.patch
+            '5986a9ba82271d62b107266242fb82384e578aac6326dbf80cecf31f2a8c86f5' # services-dbus.patch
 
             'SKIP'
             'SKIP'
@@ -308,11 +308,20 @@ _package() {
             pkgdesc="Run the nosh service manager and daemontools service scanner via systemd"
             depends+=( 'nosh-common' 'nosh-service-management>=1.33' 'systemd' 'nosh-bundles' )
             install="nosh-run-via-systemd.install"
+            backup=( 'usr/share/system-control/presets/80-disable-sysinit.preset'
+                     'usr/share/system-control/presets/80-disable-dbus.preset'
+                     'usr/share/system-control/presets/80-disable-local-syslog.preset'
+                     'usr/share/system-control/presets/80-disable-remote-fs.preset'
+                     'usr/share/system-control/presets/80-disable-networking.preset'
+                     )
             ;;
         nosh-run-kernel-vt)
             pkgdesc="Run old-style kernel virtual terminals"
             depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.33' 'nosh-terminal-management' 'nosh-bundles' )
             install="nosh-run-kernel-vt.install"
+            backup=( 'usr/share/system-control/presets/80-linux-ttylogin-tty.preset'
+                     'usr/share/system-control/presets/80-enable-kernel-vt.preset'
+                     )
             ;;
         nosh-run-udev)
             pkgdesc="Run udev as the device manager"
@@ -320,24 +329,28 @@ _package() {
             optdepends+=( 'eudev: alternative udev implementation' )
             conflicts+=('nosh-run-busybox-mdev' 'nosh-run-suckless-mdev' 'nosh-run-vdev' 'nosh-run-systemd-udev')
             install="nosh-run-udev.install"
+            backup=( 'usr/share/system-control/presets/80-enable-udev.preset' )
             ;;
         nosh-run-systemd-udev)
             pkgdesc="Run systemd-udev as the device manager"
             depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.33' 'nosh-bundles>=1.34' 'systemd')
             conflicts+=('nosh-run-busybox-mdev' 'nosh-run-suckless-mdev' 'nosh-run-vdev' 'nosh-run-udev')
             install="nosh-run-systemd-udev.install"
+            backup=( 'usr/share/system-control/presets/80-enable-systemd-udev.preset' )
             ;;
         nosh-run-busybox-mdev)
             pkgdesc="Run BusyBox mdev as the device manager"
             depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.33' 'nosh-bundles' 'busybox')
             conflicts+=('nosh-run-udev' 'nosh-run-suckless-mdev' 'nosh-run-vdev' 'nosh-run-systemd-udev')
             install="nosh-run-busybox-mdev.install"
+            backup=( 'usr/share/system-control/presets/80-enable-busybox-mdev.preset' )
             ;;
         nosh-run-suckless-mdev)
             pkgdesc="Run SuckLess mdev as the device manager"
             depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.33' 'nosh-bundles' 'smdev')
             conflicts+=('nosh-run-udev' 'nosh-run-busybox-mdev' 'nosh-run-vdev' 'nosh-run-systemd-udev')
             install="nosh-run-suckless-mdev.install"
+            backup=( 'usr/share/system-control/presets/80-enable-suckless-mdev.preset' )
             ;;
         nosh-run-vdev)
             pkgdesc="Run vdev as the device manager"
@@ -345,55 +358,85 @@ _package() {
             conflicts+=('nosh-run-busybox-mdev' 'nosh-run-suckless-mdev' 'nosh-run-udev' 'nosh-run-systemd-udev')
             # no run script so far
             # install="nosh-run-vdev.install"
+            backup=( 'usr/share/system-control/presets/80-enable-vdev.preset' )
             ;;
         nosh-run-user-vt)
             pkgdesc="Run new-style application-mode virtual terminals"
             depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.33' 'nosh-terminal-management' 'nosh-bundles' )
             install="nosh-run-user-vt.install"
+            backup=( 'usr/share/system-control/presets/80-enable-user-vt.preset'
+                     'usr/share/system-control/presets/80-linux-ttylogin-vc.preset'
+                     )
             ;;
         nosh-run-freedesktop-system-bus)
             pkgdesc="Run the system-wide message bus from freedesktop.org"
             depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.33' 'nosh-bundles' )
             install="nosh-run-freedesktop-system-bus.install"
+            backup=('usr/share/system-control/presets/80-enable-freedesktop-system-bus.preset' )
             ;;
         nosh-run-freedesktop-kits)
             pkgdesc="Run the various "kit" programs from freedesktop.org"
             depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.33' 'nosh-bundles' )
             install="nosh-run-freedesktop-kits.install"
+            backup=( 'usr/share/system-control/presets/40-PackageKit.preset'
+                     'usr/share/system-control/presets/40-PolicyKit.preset'
+                     'usr/share/system-control/presets/40-UPower.preset'
+                     'usr/share/system-control/presets/40-ColourManager.preset'
+                     'usr/share/system-control/presets/40-ConsoleKit.preset'
+                     'usr/share/system-control/presets/40-UDisks.preset'
+                     'usr/share/system-control/presets/40-NetworkManager.preset'
+                     'usr/share/system-control/presets/40-ModemManager.preset'
+                     'usr/share/system-control/presets/40-Avahi.preset'
+                     )
             ;;
         nosh-run-virtualbox-guest)
             pkgdesc="Run VirtualBox guest additions"
             depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.33' 'nosh-bundles' )
             install="nosh-run-virtualbox-guest.install"
+            backup=( 'usr/share/system-control/presets/80-virtualbox-guest.preset' )
             ;;
         nosh-run-klog)
             pkgdesc="Run the klog service"
             depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.33' 'nosh-bundles' )
             #conflicts+=( 'systemd' )
             install="nosh-run-klog.install"
+            backup=( 'usr/share/system-control/presets/80-enable-klog.preset' )
             ;;
         nosh-run-local-syslog)
             pkgdesc="Run the local syslog service"
             depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.33' 'nosh-bundles' )
             #conflicts+=( 'systemd' )
             install="nosh-run-local-syslog.install"
+            backup=( 'usr/share/system-control/presets/80-enable-local-syslog.preset' )
             ;;
         nosh-run-debian-server-base)
             pkgdesc="Run the local syslog service"
             depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.33' 'nosh-bundles>=1.33' 'nosh-terminal-management' )
             conflicts+=( 'nosh-run-debian-desktop-base' 'nosh-bundles<=1.32')
             install="nosh-run-debian-server-base.install"
+            backup=( 'usr/share/system-control/presets/90-linux-static-networking.preset'
+                     'usr/share/system-control/presets/50-Debian-Server-Basic.preset'
+                     'usr/share/system-control/presets/90-linux-boot-essentials.preset'
+                     'usr/share/system-control/presets/90-common-boot-essentials.preset'
+                     )
             ;;  
         nosh-run-debian-desktop-base)
             pkgdesc="Run the local syslog service"
             depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.33' 'nosh-bundles>=1.33' 'nosh-terminal-management' )
             conflicts+=( 'nosh-run-debian-server-base' 'nosh-bundles<=1.32')
             install="nosh-run-debian-desktop-base.install"
+            backup=( 'usr/share/system-control/presets/90-linux-static-networking.preset'
+                     'usr/share/system-control/presets/50-Debian-Server-Basic.preset'
+                     'usr/share/system-control/presets/50-Debian-Desktop-Basic.preset'
+                     'usr/share/system-control/presets/90-linux-boot-essentials.preset'
+                     'usr/share/system-control/presets/90-common-boot-essentials.preset'
+                     )
             ;;  
         nosh-run-openssh-server)
             pkgdesc="Run the OpenSSH server"
             depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.33' 'nosh-bundles' )
             install="nosh-run-openssh-server.install"
+            backup=( 'usr/share/system-control/presets/40-OpenSSHServer.preset' )
             ;;  
     esac
     

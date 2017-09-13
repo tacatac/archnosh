@@ -25,12 +25,14 @@ index e1787c8..98da3e0 100644
  ExecStartPre=sh -c 'test -r /var/db/dbus/machine-id || ln -s /etc/machine-id /var/db/dbus/'
  # The --address=systemd: option is the closest to our UCSPI-LOCAL.
 diff --git a/source/services/system-wide.conf.linux b/source/services/system-wide.conf.linux
-index 3f7e475..d21b143 100644
+index 3f7e475..63d53f7 100644
 --- a/source/services/system-wide.conf.linux
 +++ b/source/services/system-wide.conf.linux
-@@ -2,5 +2,5 @@
+@@ -1,6 +1,6 @@
+ <!DOCTYPE busconfig PUBLIC "-//freedesktop//DTD D-Bus Bus Configuration 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
  <busconfig>
-   <include>/etc/dbus-1/system.conf</include>
+-  <include>/etc/dbus-1/system.conf</include>
++  <include>/usr/share/dbus-1/system.conf</include>
    <!-- This is a helper that is used to launch system-wide services -->
 -  <servicehelper>/usr/local/bin/dbus-daemon-launch-helper</servicehelper>
 +  <servicehelper>/usr/bin/dbus-daemon-launch-helper</servicehelper>

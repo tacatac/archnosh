@@ -1,3 +1,7 @@
+1.35-3
+* fixed service-dbus.patch configuration path
+* added backup guards for all preset configuration files
+
 1.35-2
 * Updated package dependency details
 
