@@ -39,7 +39,7 @@ pkgname=(
     'nosh-run-openssh-server'
     )               
 pkgver=1.35
-pkgrel=3
+pkgrel=4
 pkgdesc="A suite of system-level utilities for initializing and running a BSD or Linux system, for managing daemons, for managing terminals, and for managing logging."
 arch=('x86_64')
 url="https://jdebp.eu/Softwares/nosh/index.html"
@@ -313,6 +313,15 @@ _package() {
                      'usr/share/system-control/presets/80-disable-local-syslog.preset'
                      'usr/share/system-control/presets/80-disable-remote-fs.preset'
                      'usr/share/system-control/presets/80-disable-networking.preset'
+                     'usr/lib/systemd/system/service-manager-svscan.path'
+                     'usr/lib/systemd/system/system-control-normal.service'
+                     'usr/lib/systemd/system/service-manager.socket'
+                     'usr/lib/systemd/system/service-manager-svscan.service'
+                     'usr/lib/systemd/system/vc-getty@.service'
+                     'usr/lib/systemd/system/service-manager.service'
+                     'usr/lib/tmpfiles.d/terminal-emulator.conf'
+                     'usr/lib/tmpfiles.d/service-manager.conf'
+                     'usr/lib/tmpfiles.d/system-manager.conf'
                      )
             ;;
         nosh-run-kernel-vt)
