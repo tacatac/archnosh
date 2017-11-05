@@ -1,3 +1,8 @@
+1.35-5
+* removed now-deleted AUR libtinfo dependency, libtinfo is included and functional from core ncurses-6.0+20170902-3
+* fixed per-user dbus configuration file
+* fixed some dbus-launched services' path configurations
+
 1.35-4
 * added more backup guards, mentionned in README
 

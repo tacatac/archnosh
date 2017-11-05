@@ -33,7 +33,6 @@ The make dependencies are the following and require [AUR](https://wiki.archlinux
 
 * [pax](https://aur.archlinux.org/packages/pax/) (AUR)
 * [redo-jdebp](https://aur.archlinux.org/packages/redo-jdebp/) (AUR)
-* [libtinfo](https://aur.archlinux.org/packages/libtinfo/) (AUR)
 * [xmlto](https://www.archlinux.org/packages/extra/x86_64/xmlto/) (Extra)
 * [docbook-xml](https://www.archlinux.org/packages/extra/any/docbook-xml/) (Extra)
 * [docbook-xsl](https://www.archlinux.org/packages/extra/any/docbook-xsl/) (Extra)

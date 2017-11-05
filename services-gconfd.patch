@@ -1,0 +1,13 @@
+diff --git a/source/convert/gconfd.service.linux b/source/convert/gconfd.service.linux
+index d0e4779..c217d36 100644
+--- a/source/convert/gconfd.service.linux
++++ b/source/convert/gconfd.service.linux
+@@ -8,7 +8,7 @@ Description=GNOME Configuration
+ [Service]
+ Type=dbus
+ EnvironmentDirectory=env
+-ExecStart=/usr/lib/x86-64-linux-gnu/gconf/%p-2
++ExecStart=/usr/lib/GConf/%p-2
+ Restart=no
+ 
+ [Install]

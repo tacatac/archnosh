@@ -1,3 +1,16 @@
+diff --git a/source/convert/per-user.conf.linux b/source/convert/per-user.conf.linux
+index 62202e5..b3bafb3 100644
+--- a/source/convert/per-user.conf.linux
++++ b/source/convert/per-user.conf.linux
+@@ -1,6 +1,6 @@
+ <!DOCTYPE busconfig PUBLIC "-//freedesktop//DTD D-Bus Bus Configuration 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+ <busconfig>
+-  <include>/etc/dbus-1/session.conf</include>
++  <include>/usr/share/dbus-1/session.conf</include>
+   <!-- This is a helper that is used to launch per-user services -->
+-  <servicehelper>/usr/local/bin/dbus-daemon-launch-helper</servicehelper>
++  <servicehelper>/usr/bin/dbus-daemon-launch-helper</servicehelper>
+ </busconfig>
 diff --git a/source/services/dbus-broker.service b/source/services/dbus-broker.service
 index 91106ca..d882848 100644
 --- a/source/services/dbus-broker.service

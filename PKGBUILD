@@ -39,14 +39,14 @@ pkgname=(
     'nosh-run-openssh-server'
     )               
 pkgver=1.35
-pkgrel=4
+pkgrel=5
 pkgdesc="A suite of system-level utilities for initializing and running a BSD or Linux system, for managing daemons, for managing terminals, and for managing logging."
 arch=('x86_64')
 url="https://jdebp.eu/Softwares/nosh/index.html"
 license=('custom:MIT Expat' 'custom:FreeBSD' 'custom:ISC' 'custom:Simplified BSD')
 groups=()
 depends=()
-makedepends=('pax' 'docbook-xml' 'docbook-xsl' 'xmlto' 'libtinfo' 'redo-jdebp')
+makedepends=('pax' 'docbook-xml' 'docbook-xsl' 'xmlto' 'redo-jdebp')
 checkdepends=()
 optdepends=()
 provides=()
@@ -92,6 +92,8 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         "maintenance.sh"
         "scriptletbuilder.sh"
         "services-dbus.patch"
+        "services-at-spi-dbus-bus.patch"
+        "services-gconfd.patch"
         
         "nosh-bundles.install"
         "nosh-run-klog.install"
@@ -120,7 +122,9 @@ sha256sums=(
             'e5e90eea4ed0685eccbb6f5435c55100b4ffa53062068d202b0cb96c521c221a' # maintenance-scripts.patch
             '766ae08d97b2d840761132d164bd6bc596c4157470e9ce8b8a6135ea95624ed4' # maintenance.sh
             '2f3a9ee93505534f2db82d71edb694b1c32aa3f4e2880f3d62589a5fe65f062b' # scriptletbuilder.sh
-            '5986a9ba82271d62b107266242fb82384e578aac6326dbf80cecf31f2a8c86f5' # services-dbus.patch
+            '30d35b60639a742c27794bf598ceb1b668226dcffe2b418ab7d09e9feabea114' # services-dbus.patch
+            'e734440761a14c34ccbaad30d9d3770de074ed12c031d2058de674a29986a173' # services-at-spi-dbus-bus.patch
+            '255929ffe55de8264ad865f07e37e86c73eed9dd66cad6ea5ecd5bd4271dac0a' # services-gconfd.patch
 
             'SKIP'
             'SKIP'
@@ -172,6 +176,8 @@ prepare() {
     msg2 "Modifying service files"
     cd "${srcdir}"
     patch -p1 -i "${srcdir}"/services-dbus.patch
+    patch -p1 -i "${srcdir}"/services-at-spi-dbus-bus.patch
+    patch -p1 -i "${srcdir}"/services-gconfd.patch
 }
 
 build() {

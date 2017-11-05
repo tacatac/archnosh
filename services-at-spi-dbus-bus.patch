@@ -1,0 +1,13 @@
+diff --git a/source/convert/at-spi-dbus-bus.service.linux b/source/convert/at-spi-dbus-bus.service.linux
+index 889935b..d9c06fe 100644
+--- a/source/convert/at-spi-dbus-bus.service.linux
++++ b/source/convert/at-spi-dbus-bus.service.linux
+@@ -8,7 +8,7 @@ Description=Assistive Technology Service Provider Accessibiliy Services Bus
+ [Service]
+ Type=dbus
+ EnvironmentDirectory=env
+-ExecStart=/usr/lib/at-spi2-core/at-spi-bus-launcher
++ExecStart=/usr/lib/at-spi-bus-launcher
+ Restart=no
+ 
+ [Install]
