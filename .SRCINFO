@@ -1,7 +1,7 @@
 pkgbase = nosh
 	pkgdesc = A suite of system-level utilities for initializing and running a BSD or Linux system, for managing daemons, for managing terminals, and for managing logging.
-	pkgver = 1.35
-	pkgrel = 5
+	pkgver = 1.36
+	pkgrel = 1
 	url = https://jdebp.eu/Softwares/nosh/index.html
 	changelog = archnosh.changelog
 	arch = x86_64
@@ -14,7 +14,7 @@ pkgbase = nosh
 	makedepends = docbook-xsl
 	makedepends = xmlto
 	makedepends = redo-jdebp
-	source = https://jdebp.eu/Repository/freebsd/nosh-1.35.tar.gz
+	source = https://jdebp.eu/Repository/freebsd/nosh-1.36.tar.gz
 	source = staging.patch
 	source = maintenance-scripts.patch
 	source = maintenance.sh
@@ -41,8 +41,8 @@ pkgbase = nosh
 	source = nosh-run-debian-server-base.install
 	source = nosh-run-debian-desktop-base.install
 	source = nosh-run-openssh-server.install
-	sha256sums = df1f320d353459580ae20d1d62115de375398916a1fe3a7746a6fc89acfb7c75
-	sha256sums = ceab03a0b164c16b1189e46e1db45e71e83c5612ea01c639d750437cbeb6ff58
+	sha256sums = 43661c987ec6b843c7da1a496326bb0e213fab02e73f39417522f02d982807c5
+	sha256sums = aef5795fe6aa178627d1272757986e78e03bba5689eef49baa62edd2a55ae25d
 	sha256sums = e5e90eea4ed0685eccbb6f5435c55100b4ffa53062068d202b0cb96c521c221a
 	sha256sums = 766ae08d97b2d840761132d164bd6bc596c4157470e9ce8b8a6135ea95624ed4
 	sha256sums = 2f3a9ee93505534f2db82d71edb694b1c32aa3f4e2880f3d62589a5fe65f062b
@@ -102,6 +102,8 @@ pkgname = nosh-debian-shims
 pkgname = nosh-openbsd-shims
 
 pkgname = nosh-bsd-shims
+
+pkgname = nosh-freebsd-shims
 
 pkgname = nosh-kbd-shims
 

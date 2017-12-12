@@ -19,6 +19,7 @@ pkgname=(
     'nosh-debian-shims'
     'nosh-openbsd-shims'
     'nosh-bsd-shims'
+    'nosh-freebsd-shims'
     'nosh-kbd-shims'
     'nosh-bundles'
     'nosh-run-via-systemd'
@@ -38,8 +39,8 @@ pkgname=(
     'nosh-run-debian-desktop-base'
     'nosh-run-openssh-server'
     )               
-pkgver=1.35
-pkgrel=5
+pkgver=1.36
+pkgrel=1
 pkgdesc="A suite of system-level utilities for initializing and running a BSD or Linux system, for managing daemons, for managing terminals, and for managing logging."
 arch=('x86_64')
 url="https://jdebp.eu/Softwares/nosh/index.html"
@@ -117,8 +118,8 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         )
 noextract=()
 sha256sums=(
-            'df1f320d353459580ae20d1d62115de375398916a1fe3a7746a6fc89acfb7c75' # nosh-1.35.tar.gz
-            'ceab03a0b164c16b1189e46e1db45e71e83c5612ea01c639d750437cbeb6ff58' # staging.patch
+            '43661c987ec6b843c7da1a496326bb0e213fab02e73f39417522f02d982807c5' # nosh-1.36.tar.gz
+            'aef5795fe6aa178627d1272757986e78e03bba5689eef49baa62edd2a55ae25d' # staging.patch
             'e5e90eea4ed0685eccbb6f5435c55100b4ffa53062068d202b0cb96c521c221a' # maintenance-scripts.patch
             '766ae08d97b2d840761132d164bd6bc596c4157470e9ce8b8a6135ea95624ed4' # maintenance.sh
             '2f3a9ee93505534f2db82d71edb694b1c32aa3f4e2880f3d62589a5fe65f062b' # scriptletbuilder.sh
@@ -294,6 +295,11 @@ _package() {
             pkgdesc="OpenBSD shim service and system management utilities"
             depends+=( 'nosh-common' 'nosh-service-management' 'nosh-systemv-shims<=1.28' )
             conflicts+=( 'nosh-systemv-shims<=1.27')
+            ;;
+        nosh-freebsd-shims)
+            pkgdesc="FreeBSD shim service and system management utilities"
+            depends+=( 'nosh-terminal-management' )
+            conflicts+=( 'nosh-sistemv-shims<=1.27' )
             ;;
         nosh-bsd-shims)
             pkgdesc="BSD shim service and system management utilities"

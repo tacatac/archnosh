@@ -101,6 +101,7 @@ For a fully nosh-managed system, i.e. nosh running as the init process and servi
 * nosh-common
 * nosh-exec
 * nosh-execline-shims
+* nosh-freebsd-shims
 * nosh-service-management
 * nosh-terminal-management
 * nosh-bundles
