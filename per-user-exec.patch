@@ -1,0 +1,48 @@
+diff --git a/source/convert/per-user/at-spi-dbus-bus.service.do b/source/convert/per-user/at-spi-dbus-bus.service.do
+index dc1ad31..de4100d 100755
+--- a/source/convert/per-user/at-spi-dbus-bus.service.do
++++ b/source/convert/per-user/at-spi-dbus-bus.service.do
+@@ -5,9 +5,9 @@
+ # vim:set filetype=sh:
+ case "`uname`" in
+ Linux)
+-	redo-ifchange /etc/os-release
++	redo-ifchange exec /etc/os-release
+ 	# These get us *only* the operating system variables, safely.
+-	read_os() { /bin/exec clearenv read-conf /etc/os-release "`which printenv`" "$1" ; }
++	read_os() { ./exec clearenv read-conf /etc/os-release "`which printenv`" "$1" ; }
+ 
+ 	case "`read_os ID`:`read_os VERSION_ID`" in
+ 	arch:*) 	ext=arch-linux ;;
+diff --git a/source/convert/per-user/gconfd.service.do b/source/convert/per-user/gconfd.service.do
+index dc1ad31..de4100d 100755
+--- a/source/convert/per-user/gconfd.service.do
++++ b/source/convert/per-user/gconfd.service.do
+@@ -5,9 +5,9 @@
+ # vim:set filetype=sh:
+ case "`uname`" in
+ Linux)
+-	redo-ifchange /etc/os-release
++	redo-ifchange exec /etc/os-release
+ 	# These get us *only* the operating system variables, safely.
+-	read_os() { /bin/exec clearenv read-conf /etc/os-release "`which printenv`" "$1" ; }
++	read_os() { ./exec clearenv read-conf /etc/os-release "`which printenv`" "$1" ; }
+ 
+ 	case "`read_os ID`:`read_os VERSION_ID`" in
+ 	arch:*) 	ext=arch-linux ;;
+diff --git a/source/convert/per-user/per-user.conf.do b/source/convert/per-user/per-user.conf.do
+index 806e245..736a57e 100755
+--- a/source/convert/per-user/per-user.conf.do
++++ b/source/convert/per-user/per-user.conf.do
+@@ -5,9 +5,9 @@
+ # vim:set filetype=sh:
+ case "`uname`" in
+ Linux)
+-	redo-ifchange /etc/os-release
++	redo-ifchange exec /etc/os-release
+ 	# These get us *only* the operating system variables, safely.
+-	read_os() { /bin/exec clearenv read-conf /etc/os-release "`which printenv`" "$1" ; }
++	read_os() { ./exec clearenv read-conf /etc/os-release "`which printenv`" "$1" ; }
+ 
+ 	case "`read_os ID`:`read_os VERSION_ID`" in
+ 	arch:*) 	ext=linux ;;

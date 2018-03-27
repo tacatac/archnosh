@@ -1,37 +1,59 @@
-diff --git a/package/debian/nosh-run-system-manager.postinst b/package/debian/nosh-run-system-manager.postinst
-index 4176377..e6d1a65 100755
---- a/package/debian/nosh-run-system-manager.postinst
-+++ b/package/debian/nosh-run-system-manager.postinst
-@@ -1,14 +1,6 @@
--#!/bin/sh -
--case "$1" in
--	configure)
--		if test -z "$2"		# No prior version installed/left configured.
--		then
- 			for i in - -usr -var -home 
- 			do
- 				/bin/rm -f -r /etc/service-bundles/services/fsck@$i/
- 				/bin/rm -f -r /etc/service-bundles/services/mount@$i/
- 			done
--		fi
- 		( cd /etc/system-control/convert && redo all )
--		;;
--esac
-diff --git a/package/debian/nosh-run-via-systemd.postrm b/package/debian/nosh-run-via-systemd.postrm
-index 433f762..71a75b2 100755
---- a/package/debian/nosh-run-via-systemd.postrm
-+++ b/package/debian/nosh-run-via-systemd.postrm
-@@ -1,7 +1,3 @@
--#!/bin/sh -
--case "$1" in
--	# post-deinstall for nosh-run-via-systemd
--	remove|purge)
- 		# Re-apply presets to services that were cut-out by a special preset in this package.
- 		system-control preset sysinit.target dbus.socket local-syslog.target
- 		system-control preset static-networking.target
-@@ -10,5 +6,3 @@ case "$1" in
- 		system-control preset busybox-mdev.socket busybox-mdev-log.service busybox-mdev-rescan.service
- 		system-control preset suckless-mdev.socket suckless-mdev-log.service suckless-mdev-rescan.service
- 		system-control preset vdev.socket vdev-log.service
--		;;
--esac
+diff --git a/package/debian/nosh-run-system-manager.post_install.extra b/package/debian/nosh-run-system-manager.post_install.extra
+index cacf3c1..d30d4a1 100644
+--- a/package/debian/nosh-run-system-manager.post_install.extra
++++ b/package/debian/nosh-run-system-manager.post_install.extra
+@@ -1,11 +1,8 @@
+ # Extra post-install for nosh-run-system-manager
+ 
+-if test -z "$2"		# No prior version installed/left configured.
+-then
+ 	for i in - -usr -var -home 
+ 	do
+ 		/bin/rm -f -r /etc/service-bundles/services/fsck@$i/
+ 		/bin/rm -f -r /etc/service-bundles/services/mount@$i/
+ 	done
+-fi
+ redo -C /etc/system-control/convert all
+diff --git a/package/debian/nosh-run-system-manager.post_upgrade.extra b/package/debian/nosh-run-system-manager.post_upgrade.extra
+index afc1354..7a926e1 100644
+--- a/package/debian/nosh-run-system-manager.post_upgrade.extra
++++ b/package/debian/nosh-run-system-manager.post_upgrade.extra
+@@ -1,11 +1,8 @@
+ # Extra post-upgrade for nosh-run-system-manager
+ 
+-if test -z "$2"		# No prior version installed/left configured.
+-then
+ 	for i in - -usr -var -home 
+ 	do
+ 		/bin/rm -f -r /etc/service-bundles/services/fsck@$i/
+ 		/bin/rm -f -r /etc/service-bundles/services/mount@$i/
+ 	done
+-fi
+ redo -C /etc/system-control/convert all
+diff --git a/package/debian/nosh-service-management.post_remove.extra b/package/debian/nosh-service-management.post_remove.extra
+index ef85f0f..0d1c6db 100644
+--- a/package/debian/nosh-service-management.post_remove.extra
++++ b/package/debian/nosh-service-management.post_remove.extra
+@@ -1,3 +1,3 @@
+ # Extra post-remove for nosh-service-management
+ 
+-dpkg-divert --package nosh-service-management --remove --rename /usr/lib/dbus-1.0/dbus-daemon-launch-helper
++mv -v /usr/lib/dbus-1.0/dbus-daemon-launch-helper.old /usr/lib/dbus-1.0/dbus-daemon-launch-helper
+diff --git a/package/debian/nosh-service-management.pre_install.extra b/package/debian/nosh-service-management.pre_install.extra
+index 546254e..45f0576 100644
+--- a/package/debian/nosh-service-management.pre_install.extra
++++ b/package/debian/nosh-service-management.pre_install.extra
+@@ -1,3 +1,3 @@
+ # Extra pre-install for nosh-service-management
+ 
+-dpkg-divert --package nosh-service-management --add --rename /usr/lib/dbus-1.0/dbus-daemon-launch-helper
++mv -v /usr/lib/dbus-1.0/dbus-daemon-launch-helper /usr/lib/dbus-1.0/dbus-daemon-launch-helper.old
+diff --git a/package/debian/nosh-service-management.pre_upgrade.extra b/package/debian/nosh-service-management.pre_upgrade.extra
+index ab7e91e..837eac7 100644
+--- a/package/debian/nosh-service-management.pre_upgrade.extra
++++ b/package/debian/nosh-service-management.pre_upgrade.extra
+@@ -1,3 +1,3 @@
+ # Extra pre-upgrade for nosh-service-management
+ 
+-dpkg-divert --package nosh-service-management --add --rename /usr/lib/dbus-1.0/dbus-daemon-launch-helper
++mv -v /usr/lib/dbus-1.0/dbus-daemon-launch-helper /usr/lib/dbus-1.0/dbus-daemon-launch-helper.old
