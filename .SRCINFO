@@ -18,6 +18,14 @@ pkgbase = nosh
 	source = staging.patch
 	source = maintenance-scripts.patch
 	source = scriptletbuilder.sh
+	source = misc.patch
+	source = os_version.do
+	source = gnome-maps.service.linux
+	source = gnome-weather-application.service.linux
+	source = watchman.service
+	source = watchman.socket
+	source = uscheduled.service
+	source = uscheduled.socket
 	source = nosh-bundles.install
 	source = nosh-run-busybox-mdev.install
 	source = nosh-run-debian-desktop-base.install
@@ -38,8 +46,16 @@ pkgbase = nosh
 	source = nosh-service-management.install
 	sha256sums = a8bfe55b9f3e61097c1dfaa23c8d5ea0c39e1dc1ddf0b669133c1d7723911c93
 	sha256sums = e7fc3022780a179a0da293b0da4094deef770cb6f4572b39c6bec4e38752f0d5
-	sha256sums = 02529c958ba5e1051d735cdf5721ae9bb127eeffffb51c753c799d47dfd5163f
+	sha256sums = 8f2a1ba80ac5a6a912579a70454bc843d551db22bd1ef7e6dda9124167a7fa00
 	sha256sums = 907d92546845ab087be38515fcbd04bec68b68a250534063695e73646241454c
+	sha256sums = fd07dd551ad82a813bcd50d91f0395e26dbae93e36f76ac21c2439683ab777a6
+	sha256sums = 156a4251a0acb56ff999a543563c91a6268294da92e45c030bbad8719d9b425b
+	sha256sums = 12e480b923b4828dc30907fa0e4deffbf68d1eff2da672fb7933f0bf5a829c93
+	sha256sums = 65a81acca6504d4bf0843b59d7f70228499f84d79e13d68968eacdba7b9e60f8
+	sha256sums = ed18d04556bdf208a4a69ff866d49bdf65129639b32f15a4aab5193477bb8f37
+	sha256sums = 944e8a7a4662ce8e3ebccf64db792407e0ac5e16fb91324513e37bc042c7d56f
+	sha256sums = 37fcde3d74c70e92ee7b606fd50cdffbd45a70a7348745cf5756b762b3602aab
+	sha256sums = bda8c7717fd71ee49c8d99e0fc0c595068d7e9bc7dc9aa9dda9d2840e9ef04cb
 	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = SKIP
@@ -96,8 +112,6 @@ pkgname = nosh-bsd-shims
 pkgname = nosh-ucspi-tcp-shims
 
 pkgname = nosh-kbd-shims
-
-pkgname = nosh-logrotate-shims
 
 pkgname = nosh-bundles
 

@@ -9,7 +9,7 @@ The packaging here closely follows the [Debian packaging](https://jdebp.eu/Softw
 
 With caution! Installing some of the nosh packages provided here can profoundly change the way your system bootstraps and runs services.
 
-Furthermore, the packages have so far been tested locally on virtual machines with minimum installs of early 2017 Archlinux releases and on a personal laptop, where they *do* work for the most part but tailoring to your system will be necessary.
+Furthermore, the packages have so far been tested locally on virtual machines with minimum installs of early 2018 Archlinux releases and on a personal laptop, where they *do* work for the most part but tailoring to your system will be necessary.
 
 *Caveat emptor.*
 
@@ -40,7 +40,7 @@ The make dependencies are the following and require [AUR](https://wiki.archlinux
 For [package building](https://wiki.archlinux.org/index.php/Arch_Build_System) in general, ensure the [base-devel](https://www.archlinux.org/groups/x86_64/base-devel/) package is installed.
 
 
-#### Build the packages
+#### Build and install the packages
 
 Put the files in a directory and run:
 
@@ -49,6 +49,13 @@ Put the files in a directory and run:
 You can then install the generated packages with:
 
     # pacman -U <package-name>
+
+N.B.: due to a change in dbus-daemon behaviour and since nosh-1.37, the `nosh-service-management` package needs to override the `dbus-daemon-launch-helper` binary from the `core/dbus` Archlinux package with its own. While the Debian package uses the `dpkg-divert` mechanism, no similar method appears to exist on Arch (suggestions welcome).
+
+The Archnosh package currently overwrites `/usr/lib/dbus-1.0/dbus-daemon-launch-helper`. This has two consequences:
+
+* one must use the `--force` option when installing with pacman to avoid a file collision error
+* `nosh-service-management` now competes with `core/dbus` and must be reinstalled when the latter is updated.
 
 
 ### Running nosh

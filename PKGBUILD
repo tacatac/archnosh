@@ -93,7 +93,14 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         "staging.patch"
         "maintenance-scripts.patch"
         "scriptletbuilder.sh"
-        "per-user-exec.patch"
+        "misc.patch"
+        "os_version.do"
+        "gnome-maps.service.linux"
+        "gnome-weather-application.service.linux"
+        "watchman.service"
+        "watchman.socket"
+        "uscheduled.service"
+        "uscheduled.socket"
         
         "nosh-bundles.install"
         "nosh-run-busybox-mdev.install"
@@ -120,8 +127,15 @@ sha256sums=(
             'e7fc3022780a179a0da293b0da4094deef770cb6f4572b39c6bec4e38752f0d5' # staging.patch
             '8f2a1ba80ac5a6a912579a70454bc843d551db22bd1ef7e6dda9124167a7fa00' # maintenance-scripts.patch
             '907d92546845ab087be38515fcbd04bec68b68a250534063695e73646241454c' # scriptletbuilder.sh
-            '7d52bb895ecffb721712fe76c6a57351c744f9ef96a5fa2521133e609f52c942' # per-user-exec.patch
-
+            'fd07dd551ad82a813bcd50d91f0395e26dbae93e36f76ac21c2439683ab777a6' # misc.patch
+            '156a4251a0acb56ff999a543563c91a6268294da92e45c030bbad8719d9b425b' # os_version.do
+            '12e480b923b4828dc30907fa0e4deffbf68d1eff2da672fb7933f0bf5a829c93' # gnome-maps.service.linux
+            '65a81acca6504d4bf0843b59d7f70228499f84d79e13d68968eacdba7b9e60f8' # gnome-weather-application.service.linux
+            'ed18d04556bdf208a4a69ff866d49bdf65129639b32f15a4aab5193477bb8f37' # watchman.service
+            '944e8a7a4662ce8e3ebccf64db792407e0ac5e16fb91324513e37bc042c7d56f' # watchman.socket
+            '37fcde3d74c70e92ee7b606fd50cdffbd45a70a7348745cf5756b762b3602aab' # uscheduled.service
+            'bda8c7717fd71ee49c8d99e0fc0c595068d7e9bc7dc9aa9dda9d2840e9ef04cb' # uscheduled.socket
+            
             'SKIP' # nosh-bundles.install
             'SKIP' # nosh-run-busybox-mdev.install
             'SKIP' # nosh-run-debian-desktop-base.install
@@ -162,7 +176,10 @@ prepare() {
     sed -i 's@usr/local/lib@usr/lib@g' nosh-run-via-systemd.post_install.extra nosh-run-via-systemd.post_upgrade.extra
     cd "${srcdir}"
     patch -p1 -i "${srcdir}"/maintenance-scripts.patch
-    patch -p1 -i "${srcdir}"/per-user-exec.patch
+    patch -p1 -i "${srcdir}"/misc.patch
+
+    # add 1.38 backported os_version, needed at build time
+    install -v -m 755 "${srcdir}"/os_version.do "${srcdir}"/source/
 }
 
 build() {
@@ -303,6 +320,12 @@ _package() {
             pkgdesc="Service bundles"
             depends+=( 'nosh-common' 'nosh-service-management>=1.37' 'nosh-exec>=1.37' 'nosh-terminal-management>=1.22' 'shadow' )
             install="nosh-bundles.install"
+            install -D -v -m 444 "${srcdir}"/gnome-maps.service.linux "${pkgdir}"/etc/system-control/convert/per-user/gnome-maps.service
+            install -v -m 444 "${srcdir}"/gnome-weather-application.service.linux "${pkgdir}"/etc/system-control/convert/per-user/gnome-weather-application.service
+            install -v -m 444 "${srcdir}"/watchman.service "${pkgdir}"/etc/system-control/convert/per-user/
+            install -v -m 444 "${srcdir}"/watchman.socket "${pkgdir}"/etc/system-control/convert/per-user/
+            install -v -m 444 "${srcdir}"/uscheduled.service "${pkgdir}"/etc/system-control/convert/per-user/
+            install -v -m 444 "${srcdir}"/uscheduled.socket "${pkgdir}"/etc/system-control/convert/per-user/
             ;;
         nosh-run-system-manager)
             pkgdesc="Run the nosh system manager"

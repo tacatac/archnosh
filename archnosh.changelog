@@ -1,3 +1,7 @@
+1.37-1
+* backported 1.38 fixes
+* dbus-daemon is non-cooperative, nosh-service-management has to override dbus-daemon-launch-helper and be installed with `pacman --force`, core/dbus now competes with this package (no dpkg-divert equivalent found for Arch)
+
 1.36-1
 * added nosh-freebsd-shims package
 
