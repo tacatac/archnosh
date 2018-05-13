@@ -1,5 +1,5 @@
 diff --git a/package/stage b/package/stage
-index 8f18a7f..fdba2ee 100755
+index c2b9dc2..cc5ec3f 100755
 --- a/package/stage
 +++ b/package/stage
 @@ -19,15 +19,15 @@ absdest="`readlink -f "${dest}"`/"
@@ -24,44 +24,54 @@ index 8f18a7f..fdba2ee 100755
  
  # Set this to blank or unset it if /usr/{s,}bin and /{s,}bin are identical.
  case "`uname`" in
-@@ -72,18 +72,18 @@ do
+@@ -75,36 +75,36 @@ for i in exec terminal-management service-management terminal-extras service-man
+ do
+ 	if test -s package/nosh-"$i".commands1 || test -s package/nosh-"$i".aliases1
+ 	then
+-		install -d -m 0755 -- "${dest}"/nosh-"${i}"/"${binprefix}"/bin 
++		install -d -m 0755 -- "${dest}"/nosh-"${i}"/"${binprefix}"/bin
+ 		install -d -m 0755 -- "${dest}"/nosh-"${i}"/"${manprefix}"/man/man1 
  	fi
- 	while read j ;
+ 	while read -r j
  	do
 -		ln -f -- "${src}"/command/"$j" "${dest}"/nosh-"${i}"/"${binprefix}"/bin/ 
 +		ln -f -- "${src}"/command/"$j" "${dest}"/nosh-"${i}"/"${binprefix}"/bin/
  		ln -f -- "${src}"/manual/"$j".1 "${dest}"/nosh-"${i}"/"${manprefix}"/man/man1/ 
- 	done < package/nosh-"$i".commands1 ;
+ 	done < package/nosh-"$i".commands1
  
- 	if test -s package/nosh-"$i".commands8 || test -s package/nosh-"$i".aliases8 ;
+ 	if test -s package/nosh-"$i".commands8 || test -s package/nosh-"$i".aliases8
  	then
 -		install -d -m 0755 -- "${dest}"/nosh-"${i}"/"${binprefix}"/sbin 
+-		install -d -m 0755 -- "${dest}"/nosh-"${i}"/"${manprefix}"/man/man8 
 +		install -d -m 0755 -- "${dest}"/nosh-"${i}"/"${binprefix}"/bin
- 		install -d -m 0755 -- "${dest}"/nosh-"${i}"/"${manprefix}"/man/man8 
++		install -d -m 0755 -- "${dest}"/nosh-"${i}"/"${manprefix}"/man/man8
  	fi
- 	while read j ;
+ 	while read -r j
  	do
 -		ln -f -- "${src}"/command/"$j" "${dest}"/nosh-"${i}"/"${binprefix}"/sbin/ 
+-		ln -f -- "${src}"/manual/"$j".8 "${dest}"/nosh-"${i}"/"${manprefix}"/man/man8/ 
 +		ln -f -- "${src}"/command/"$j" "${dest}"/nosh-"${i}"/"${binprefix}"/bin/
- 		ln -f -- "${src}"/manual/"$j".8 "${dest}"/nosh-"${i}"/"${manprefix}"/man/man8/ 
- 	done < package/nosh-"$i".commands8 ;
++		ln -f -- "${src}"/manual/"$j".8 "${dest}"/nosh-"${i}"/"${manprefix}"/man/man8/
+ 	done < package/nosh-"$i".commands8
  
-@@ -95,7 +95,7 @@ do
+ 	while read -r c a
+ 	do
+-		ln -f -s "$c" "${dest}"/nosh-"${i}"/"${binprefix}"/bin/"$a" 
+-		ln -f -s "$c".1 "${dest}"/nosh-"${i}"/"${manprefix}"/man/man1/"$a".1 
++		ln -f -s "$c" "${dest}"/nosh-"${i}"/"${binprefix}"/bin/"$a"
++		ln -f -s "$c".1 "${dest}"/nosh-"${i}"/"${manprefix}"/man/man1/"$a".1
+ 	done < package/nosh-"$i".aliases1
  
- 	while read c a ;
+ 	while read -r c a
  	do
 -		ln -f -s "$c" "${dest}"/nosh-"${i}"/"${binprefix}"/sbin/"$a" 
+-		ln -f -s "$c".8 "${dest}"/nosh-"${i}"/"${manprefix}"/man/man8/"$a".8 
 +		ln -f -s "$c" "${dest}"/nosh-"${i}"/"${binprefix}"/bin/"$a"
- 		ln -f -s "$c".8 "${dest}"/nosh-"${i}"/"${manprefix}"/man/man8/"$a".8 
- 	done < package/nosh-"$i".aliases8 ;
++		ln -f -s "$c".8 "${dest}"/nosh-"${i}"/"${manprefix}"/man/man8/"$a".8
+ 	done < package/nosh-"$i".aliases8
  done
-@@ -132,13 +132,13 @@ fi
- if test -n "${dbusprefix}"
- then
- 	install -d -m 0755 -- "${dest}"/nosh-service-management/"${dbusprefix}"
--	ln -f -s /usr/local/bin/dbus-daemon-launch-helper "${dest}"/nosh-service-management/"${dbusprefix}"/
-+	ln -f -s /usr/bin/dbus-daemon-launch-helper "${dest}"/nosh-service-management/"${dbusprefix}"/
- fi
+ while read -r c a
+@@ -145,8 +145,8 @@ fi
  install -d -m 0755 -- "${dest}"/nosh-run-system-manager/
  case "`uname`" in
  Linux)	
@@ -69,6 +79,6 @@ index 8f18a7f..fdba2ee 100755
 -	ln -f -s system-manager "${dest}"/nosh-run-system-manager/sbin/init
 +	install -d -m 0755 -- "${dest}"/nosh-run-system-manager/usr/bin
 +	ln -f -s system-manager "${dest}"/nosh-run-system-manager/usr/bin/init
- 	;;
- *BSD)	;;
- esac
+ 	if test _"${binprefix}" != _"/usr"
+ 	then
+ 		install -d -m 0755 -- "${dest}"/nosh-bcron-as-cron-shims/usr/bin
