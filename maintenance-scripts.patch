@@ -1,3 +1,36 @@
+diff --git a/package/debian/nosh-desktop-bus-shims.post_remove.extra b/package/debian/nosh-desktop-bus-shims.post_remove.extra
+index b4d175a..66687db 100644
+--- a/package/debian/nosh-desktop-bus-shims.post_remove.extra
++++ b/package/debian/nosh-desktop-bus-shims.post_remove.extra
+@@ -1,4 +1,5 @@
+ # Extra post-remove for nosh-desktop-bus-shims
+ # vim: set filetype=sh:
+ 
+-dpkg-divert --package nosh-desktop-bus-shims --remove --rename /usr/lib/dbus-1.0/dbus-daemon-launch-helper
++#dpkg-divert --package nosh-desktop-bus-shims --remove --rename /usr/lib/dbus-1.0/dbus-daemon-launch-helper
++echo "Please reinstall core/dbus in order to replace its dbus-daemon-launch-helper"
+diff --git a/package/debian/nosh-desktop-bus-shims.pre_install.extra b/package/debian/nosh-desktop-bus-shims.pre_install.extra
+index a5e205e..646df17 100644
+--- a/package/debian/nosh-desktop-bus-shims.pre_install.extra
++++ b/package/debian/nosh-desktop-bus-shims.pre_install.extra
+@@ -1,4 +1,5 @@
+ # Extra pre-install for nosh-desktop-bus-shims
+ # vim: set filetype=sh:
+ 
+-dpkg-divert --package nosh-desktop-bus-shims --add --rename /usr/lib/dbus-1.0/dbus-daemon-launch-helper
++#dpkg-divert --package nosh-desktop-bus-shims --add --rename /usr/lib/dbus-1.0/dbus-daemon-launch-helper
++mv -v /usr/lib/dbus-1.0/dbus-daemon-launch-helper /usr/lib/dbus-1.0/dbus-daemon-launch-helper.old
+diff --git a/package/debian/nosh-desktop-bus-shims.pre_upgrade.extra b/package/debian/nosh-desktop-bus-shims.pre_upgrade.extra
+index 39e31aa..f4081ad 100644
+--- a/package/debian/nosh-desktop-bus-shims.pre_upgrade.extra
++++ b/package/debian/nosh-desktop-bus-shims.pre_upgrade.extra
+@@ -1,4 +1,5 @@
+ # Extra pre-upgrade for nosh-desktop-bus-shims
+ # vim: set filetype=sh:
+ 
+-dpkg-divert --package nosh-desktop-bus-shims --add --rename /usr/lib/dbus-1.0/dbus-daemon-launch-helper
++#dpkg-divert --package nosh-desktop-bus-shims --add --rename /usr/lib/dbus-1.0/dbus-daemon-launch-helper
++mv -v /usr/lib/dbus-1.0/dbus-daemon-launch-helper /usr/lib/dbus-1.0/dbus-daemon-launch-helper.old
 diff --git a/package/debian/nosh-run-system-manager.post_install.extra b/package/debian/nosh-run-system-manager.post_install.extra
 index 25c03dd..c3a9b47 100644
 --- a/package/debian/nosh-run-system-manager.post_install.extra
@@ -32,33 +65,3 @@ index 1fce0b2..4c1e018 100644
  	done
 -fi
  redo -C /etc/system-control/convert all
-diff --git a/package/debian/nosh-service-management.post_remove.extra b/package/debian/nosh-service-management.post_remove.extra
-index 4086aa9..79e0316 100644
---- a/package/debian/nosh-service-management.post_remove.extra
-+++ b/package/debian/nosh-service-management.post_remove.extra
-@@ -1,4 +1,4 @@
- # Extra post-remove for nosh-service-management
- # vim: set filetype=sh:
- 
--dpkg-divert --package nosh-service-management --remove --rename /usr/lib/dbus-1.0/dbus-daemon-launch-helper
-+mv -v /usr/lib/dbus-1.0/dbus-daemon-launch-helper.old /usr/lib/dbus-1.0/dbus-daemon-launch-helper
-diff --git a/package/debian/nosh-service-management.pre_install.extra b/package/debian/nosh-service-management.pre_install.extra
-index f4657c0..c35b929 100644
---- a/package/debian/nosh-service-management.pre_install.extra
-+++ b/package/debian/nosh-service-management.pre_install.extra
-@@ -1,4 +1,4 @@
- # Extra pre-install for nosh-service-management
- # vim: set filetype=sh:
- 
--dpkg-divert --package nosh-service-management --add --rename /usr/lib/dbus-1.0/dbus-daemon-launch-helper
-+mv -v /usr/lib/dbus-1.0/dbus-daemon-launch-helper /usr/lib/dbus-1.0/dbus-daemon-launch-helper.old
-diff --git a/package/debian/nosh-service-management.pre_upgrade.extra b/package/debian/nosh-service-management.pre_upgrade.extra
-index 71cb641..6d994d1 100644
---- a/package/debian/nosh-service-management.pre_upgrade.extra
-+++ b/package/debian/nosh-service-management.pre_upgrade.extra
-@@ -1,4 +1,4 @@
- # Extra pre-upgrade for nosh-service-management
- # vim: set filetype=sh:
- 
--dpkg-divert --package nosh-service-management --add --rename /usr/lib/dbus-1.0/dbus-daemon-launch-helper
-+mv -v /usr/lib/dbus-1.0/dbus-daemon-launch-helper /usr/lib/dbus-1.0/dbus-daemon-launch-helper.old

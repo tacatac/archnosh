@@ -1,5 +1,5 @@
 diff --git a/package/stage b/package/stage
-index c2b9dc2..cc5ec3f 100755
+index 5ee3c30..7d33ee6 100755
 --- a/package/stage
 +++ b/package/stage
 @@ -19,15 +19,15 @@ absdest="`readlink -f "${dest}"`/"
@@ -24,8 +24,8 @@ index c2b9dc2..cc5ec3f 100755
  
  # Set this to blank or unset it if /usr/{s,}bin and /{s,}bin are identical.
  case "`uname`" in
-@@ -75,36 +75,36 @@ for i in exec terminal-management service-management terminal-extras service-man
- do
+@@ -77,36 +77,36 @@ do
+ 
  	if test -s package/nosh-"$i".commands1 || test -s package/nosh-"$i".aliases1
  	then
 -		install -d -m 0755 -- "${dest}"/nosh-"${i}"/"${binprefix}"/bin 
@@ -71,7 +71,13 @@ index c2b9dc2..cc5ec3f 100755
  	done < package/nosh-"$i".aliases8
  done
  while read -r c a
-@@ -145,8 +145,8 @@ fi
+@@ -142,13 +142,13 @@ fi
+ if test -n "${dbusprefix}"
+ then
+ 	install -d -m 0755 -- "${dest}"/nosh-desktop-bus-shims/"${dbusprefix}"
+-	ln -f -s /usr/local/bin/dbus-daemon-launch-helper "${dest}"/nosh-desktop-bus-shims/"${dbusprefix}"/
++	ln -f -s /usr/bin/dbus-daemon-launch-helper "${dest}"/nosh-desktop-bus-shims/"${dbusprefix}"/
+ fi
  install -d -m 0755 -- "${dest}"/nosh-run-system-manager/
  case "`uname`" in
  Linux)	

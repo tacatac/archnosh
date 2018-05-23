@@ -6,6 +6,7 @@ pkgname=(
     'nosh-guide'
     'nosh-exec'
     'nosh-service-management'
+    'nosh-service-management-extras'
     'nosh-terminal-management'
     'nosh-terminal-extras'
     'nosh-zsh-completion'
@@ -22,7 +23,11 @@ pkgname=(
     'nosh-ucspi-tcp-shims'
     'nosh-kbd-shims'
      #'nosh-logrotate-shims'
+    'nosh-bcron-as-cron-shims'
+    'nosh-desktop-bus-shims'
     'nosh-bundles'
+    'nosh-debian-crontab-no-anacron'
+    'nosh-debian-crontab-anacron'
     'nosh-run-system-manager'
     'nosh-run-debian-desktop-base'
     'nosh-run-debian-server-base'
@@ -41,6 +46,7 @@ pkgname=(
     'nosh-run-vdev'
     'nosh-run-local-syslog'
     'nosh-run-klog'
+    'nosh-run-bcron'
     )               
 pkgver=1.38
 pkgrel=1
@@ -64,6 +70,8 @@ changelog="archnosh.changelog"
 # packages with maintenance scripts
 _pkginstalls=( 
         "nosh-bundles"
+        "nosh-desktop-bus-shims"
+        "nosh-run-bcron"
         "nosh-run-busybox-mdev"
         "nosh-run-debian-desktop-base"
         "nosh-run-debian-server-base"
@@ -93,8 +101,11 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         "staging.patch"
         "maintenance-scripts.patch"
         "scriptletbuilder.sh"
+        "README.md"
         
         "nosh-bundles.install"
+        "nosh-desktop-bus-shims.install"
+        "nosh-run-bcron.install"
         "nosh-run-busybox-mdev.install"
         "nosh-run-debian-desktop-base.install"
         "nosh-run-debian-server-base.install"
@@ -115,12 +126,15 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         )
 noextract=()
 sha256sums=(
-            '603241430898c4e133880fdecc10bacd1ad8928d175cccc2cab1e626886282f4' # nosh-1.38.tar.gz
-            '247536be7ff4207bb5ece3199818e502bb07dd09ada65191f12ca98e5d885d19' # staging.patch
-            '669e73dddeb9e01f57f9d7a134352697f90178dc32c79847f2080326a1993dc9' # maintenance-scripts.patch
+            '9d6a482a34baf001efa0ef5df172baae20491c82c7c24e16399e21925128b0bf' # nosh-1.38.tar.gz
+            '425edd614b1e9e5d7bf1fc45f71ce94e9782e8341066f7dbd2532e5c27ed2d2a' # staging.patch
+            '1713514f1e702b1fa663a84108c37d2cd28f70e1eea31e4c4ffb7d5ff940fa03' # maintenance-scripts.patch
             '907d92546845ab087be38515fcbd04bec68b68a250534063695e73646241454c' # scriptletbuilder.sh
+            '7b18848f1659647f11a61383be042c6b0a03eb79ee4fc6a4da1f76ef1c0216cd' # README.md
             
             'SKIP' # nosh-bundles.install
+            'SKIP' # nosh-desktop-bus-shims.install
+            'SKIP' # nosh-run-bcron.install
             'SKIP' # nosh-run-busybox-mdev.install
             'SKIP' # nosh-run-debian-desktop-base.install
             'SKIP' # nosh-run-debian-server-base.install
@@ -219,6 +233,11 @@ _package() {
             conflicts+=( 'nosh-bundles<=1.30' 'daemontools' 'daemontools-encore' )
             install="nosh-service-management.install"
             ;;
+        nosh-service-management-extras)
+            pkgdesc="Extra service and system management utilities"
+            depends+=( 'nosh-common' 'glibc>=2.13' )
+            conflicts+=( 'nosh-bundles<=1.30' )
+            ;;
         nosh-terminal-management)
             pkgdesc="Virtual terminal, pseudo-terminal, and TUI login tools"
             depends+=( 'nosh-common' 'nosh-service-management>=1.14' )
@@ -296,10 +315,29 @@ _package() {
         #    pkgdesc="Shim for the logrotate package"
         #    depends+=( 'nosh-common' 'nosh-bundles' )
         #    ;;
+        nosh-bcron-as-cron-shims)
+            pkgdesc="Shim for the bcron package"
+            depends+=( 'nosh-common' 'bcron' )
+            ;;
+        nosh-desktop-bus-shims)
+            pkgdesc="Replacements for Desktop Bus utilities"
+            depends+=( 'nosh-common' 'nosh-exec' )
+            install="nosh-desktop-bus-shims.install"
+            ;;
         nosh-bundles)
             pkgdesc="Service bundles"
             depends+=( 'nosh-common' 'nosh-service-management>=1.37' 'nosh-exec>=1.37' 'nosh-terminal-management>=1.22' 'shadow' )
             install="nosh-bundles.install"
+            ;;
+        nosh-debian-crontab-no-anacron)
+            pkgdesc="Debian common crontab (not-anacron version)"
+            depends+=( 'nosh-common' )
+            conflicts+=( 'anacron' 'nosh-debian-crontab-anacron' )
+            ;;
+        nosh-debian-crontab-anacron)
+            pkgdesc="Debian common crontab (anacron version)"
+            depends+=( 'nosh-common' )
+            conflicts+=( 'nosh-debian-crontab-no-anacron' )
             ;;
         nosh-run-system-manager)
             pkgdesc="Run the nosh system manager"
@@ -454,6 +492,12 @@ _package() {
             #conflicts+=( 'systemd' )
             install="nosh-run-klog.install"
             backup=( 'usr/share/system-control/presets/80-enable-klog.preset' )
+            ;;
+        nosh-run-bcron)
+            pkgdesc="Run the bcron services"
+            depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.33' 'nosh-bundles' 'bcron' )
+            conflicts=( 'bcron-run' )
+            provides=( 'bcron-run' )
             ;;
     esac
     
