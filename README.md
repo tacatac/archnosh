@@ -318,11 +318,11 @@ The `supervise` directory contains the control/status API files.
 
 ### logging
 
-Logging is a service on par with any other. In general one logging service is associated with each daemon to capture and manage its output (log rotation, capping etc.) although fan-in from multiple services to one logging service is also possible.
+Logging is a service on par with any other. In general one logging service is associated with each daemon to capture and manage its output (log rotation, size capping etc.) although fan-in from multiple services to one logging service is also possible.
 
 The daemontools [assumption](https://jdebp.eu/FGA/unix-daemon-design-mistakes-to-avoid.html) is that daemons log to their standard error, *not* to syslog. Specialised logging tools can then be used to manage this output.
 
-More generally, daemons are expected not to implement functions such as dropping priviledges, socket management, resource limiting, etc. which could be provided by external tools, typically the daemontools family toolsets and other service managers (see the same argument for systemd's ["new-style"](https://www.freedesktop.org/software/systemd/man/daemon.html) daemons).
+More generally, daemons are expected not to implement functions such as dropping privileges, socket management, resource limiting, etc. which could be provided by external tools, typically the daemontools family toolsets and other service managers (see the same argument for systemd's ["new-style"](https://www.freedesktop.org/software/systemd/man/daemon.html) daemons).
 
 In practice, nosh [connects](https://jdebp.eu/Softwares/nosh/guide/log-service-plumbing.html) a service's standard output and error to the service pointed to by the "log" directory of the service bundle. Below are some excerpts of the `lsof` command to illustrate:
 
@@ -372,6 +372,11 @@ It provides high-level system-wide and per-user service management (start/stop, 
 It also understands extended syntax to express service bundle-specific functionality in a systemd-like unit file, which can be used for easy distribution for example.
 
 In other words, one can benefit from existing systemd unit files through automatic conversion in many cases.
+
+
+## Automation
+
+Basic support for service management is available with the [Ansible nosh module](http://docs.ansible.com/ansible/latest/modules/nosh_module.html#nosh-module).
 
 
 ## Repositories
