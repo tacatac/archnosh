@@ -18,7 +18,10 @@ pkgbase = nosh
 	source = staging.patch
 	source = maintenance-scripts.patch
 	source = scriptletbuilder.sh
+	source = README.md
 	source = nosh-bundles.install
+	source = nosh-desktop-bus-shims.install
+	source = nosh-run-bcron.install
 	source = nosh-run-busybox-mdev.install
 	source = nosh-run-debian-desktop-base.install
 	source = nosh-run-debian-server-base.install
@@ -36,11 +39,13 @@ pkgbase = nosh
 	source = nosh-run-via-systemd.install
 	source = nosh-run-virtualbox-guest.install
 	source = nosh-service-management.install
-	sha256sums = 603241430898c4e133880fdecc10bacd1ad8928d175cccc2cab1e626886282f4
-	sha256sums = 623b713f7be88f5ab6fc0975dfd778172a4c682cccbbc74fe6b9c63f5ec6f064
-	sha256sums = 247536be7ff4207bb5ece3199818e502bb07dd09ada65191f12ca98e5d885d19
-	sha256sums = 669e73dddeb9e01f57f9d7a134352697f90178dc32c79847f2080326a1993dc9
+	sha256sums = e73ab26c207daf14db016630e5e808a12f52c664edb17408f2c51c84932c1bf8
+	sha256sums = 425edd614b1e9e5d7bf1fc45f71ce94e9782e8341066f7dbd2532e5c27ed2d2a
+	sha256sums = 1713514f1e702b1fa663a84108c37d2cd28f70e1eea31e4c4ffb7d5ff940fa03
 	sha256sums = 907d92546845ab087be38515fcbd04bec68b68a250534063695e73646241454c
+	sha256sums = 1edb6521b627c96404acbd7fad25006f1cc53f0094119bd02e82926a1429e56e
+	sha256sums = SKIP
+	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = SKIP
@@ -67,6 +72,8 @@ pkgname = nosh-guide
 pkgname = nosh-exec
 
 pkgname = nosh-service-management
+
+pkgname = nosh-service-management-extras
 
 pkgname = nosh-terminal-management
 
@@ -98,7 +105,15 @@ pkgname = nosh-ucspi-tcp-shims
 
 pkgname = nosh-kbd-shims
 
+pkgname = nosh-bcron-as-cron-shims
+
+pkgname = nosh-desktop-bus-shims
+
 pkgname = nosh-bundles
+
+pkgname = nosh-debian-crontab-no-anacron
+
+pkgname = nosh-debian-crontab-anacron
 
 pkgname = nosh-run-system-manager
 
@@ -135,4 +150,6 @@ pkgname = nosh-run-vdev
 pkgname = nosh-run-local-syslog
 
 pkgname = nosh-run-klog
+
+pkgname = nosh-run-bcron
 

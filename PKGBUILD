@@ -126,11 +126,11 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         )
 noextract=()
 sha256sums=(
-            '9d6a482a34baf001efa0ef5df172baae20491c82c7c24e16399e21925128b0bf' # nosh-1.38.tar.gz
+            'e73ab26c207daf14db016630e5e808a12f52c664edb17408f2c51c84932c1bf8' # nosh-1.38.tar.gz
             '425edd614b1e9e5d7bf1fc45f71ce94e9782e8341066f7dbd2532e5c27ed2d2a' # staging.patch
             '1713514f1e702b1fa663a84108c37d2cd28f70e1eea31e4c4ffb7d5ff940fa03' # maintenance-scripts.patch
             '907d92546845ab087be38515fcbd04bec68b68a250534063695e73646241454c' # scriptletbuilder.sh
-            '7b18848f1659647f11a61383be042c6b0a03eb79ee4fc6a4da1f76ef1c0216cd' # README.md
+            '1edb6521b627c96404acbd7fad25006f1cc53f0094119bd02e82926a1429e56e' # README.md
             
             'SKIP' # nosh-bundles.install
             'SKIP' # nosh-desktop-bus-shims.install
@@ -321,12 +321,12 @@ _package() {
             ;;
         nosh-desktop-bus-shims)
             pkgdesc="Replacements for Desktop Bus utilities"
-            depends+=( 'nosh-common' 'nosh-exec' )
+            depends+=( 'nosh-common' 'nosh-exec>=1.38' )
             install="nosh-desktop-bus-shims.install"
             ;;
         nosh-bundles)
             pkgdesc="Service bundles"
-            depends+=( 'nosh-common' 'nosh-service-management>=1.37' 'nosh-exec>=1.37' 'nosh-terminal-management>=1.22' 'shadow' )
+            depends+=( 'nosh-common' 'nosh-service-management>=1.38' 'nosh-exec>=1.38' 'nosh-terminal-management>=1.22' 'shadow' )
             install="nosh-bundles.install"
             ;;
         nosh-debian-crontab-no-anacron)
