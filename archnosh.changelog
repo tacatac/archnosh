@@ -1,3 +1,9 @@
+1.38-1
+* nosh-desktop-bus-shims is now the package that overrides core/dbus
+* documentation mentions new pacman `--overwrite` option
+* removed nosh-core-shims and systemd conflicts to allow selective --overwrite
+* added README to distributed files
+
 1.37-1
 * backported 1.38 fixes
 * dbus-daemon is non-cooperative, nosh-service-management has to override dbus-daemon-launch-helper and be installed with `pacman --force`, core/dbus now competes with this package (no dpkg-divert equivalent found for Arch)
