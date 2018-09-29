@@ -126,11 +126,11 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         )
 noextract=()
 sha256sums=(
-            'e73ab26c207daf14db016630e5e808a12f52c664edb17408f2c51c84932c1bf8' # nosh-1.38.tar.gz
+            'cf89a5469d9e939dd1975f43f3d7997f389b78a35267253992e0307ece51cbc5' # nosh-1.38.tar.gz
             '425edd614b1e9e5d7bf1fc45f71ce94e9782e8341066f7dbd2532e5c27ed2d2a' # staging.patch
             '1713514f1e702b1fa663a84108c37d2cd28f70e1eea31e4c4ffb7d5ff940fa03' # maintenance-scripts.patch
             '907d92546845ab087be38515fcbd04bec68b68a250534063695e73646241454c' # scriptletbuilder.sh
-            '1edb6521b627c96404acbd7fad25006f1cc53f0094119bd02e82926a1429e56e' # README.md
+            'SKIP' # README.md
             
             'SKIP' # nosh-bundles.install
             'SKIP' # nosh-desktop-bus-shims.install
@@ -159,7 +159,7 @@ prepare() {
     
     # ncurses headers different to Debian layout, patch out the ncursesw directory in cpp Includes
     # taken from https://github.com/atweiden/pkgbuilds/blob/master/nosh/PKGBUILD
-	msg2 "Fix ncurses header import issues"
+    msg2 "Fix ncurses header import issues"
     cd "${srcdir}"/source
     find . -type f -print0 | xargs -0 sed -i 's@ncursesw/curses\.h@curses.h@g'
     
@@ -260,7 +260,7 @@ _package() {
         nosh-systemd-shims)
             pkgdesc="Systemd shim service and system management utilities"
             depends+=( 'nosh-common' 'nosh-service-management' )
-            conflicts+=( 'systemd' )
+            #conflicts+=( 'systemd' ) # conflict not set, to allow selective pacman --overwrite
             ;;
         nosh-upstart-shims)
             pkgdesc="Upstart shim service and system management utilities"
@@ -274,7 +274,7 @@ _package() {
         nosh-core-shims)
             pkgdesc="Core utility shims"
             depends+=( 'nosh-common' 'nosh-exec' )
-            conflicts+=( 'coreutils' 'util-linux' )
+            #conflicts+=( 'coreutils' 'util-linux' ) # conflict not set, to allow selective pacman --overwrite
             ;;
         nosh-service-command-shim)
             pkgdesc="Shim for the old BSD and System 5 service command"
@@ -284,7 +284,7 @@ _package() {
         nosh-debian-shims)
             pkgdesc="Debian shim service and system management utilities"
             depends+=( 'nosh-common' 'nosh-service-management' )
-            conflicts+=( 'nosh-run-via-systemd' 'upstart' 'sysvinit' 'systemd' )
+            conflicts+=( 'upstart' 'sysvinit' 'systemd' )
             ;;
         nosh-openbsd-shims)
             pkgdesc="OpenBSD shim service and system management utilities"
@@ -294,7 +294,7 @@ _package() {
         nosh-freebsd-shims)
             pkgdesc="FreeBSD shim service and system management utilities"
             depends+=( 'nosh-terminal-management' )
-            conflicts+=( 'nosh-sistemv-shims<=1.27' )
+            conflicts+=( 'nosh-systemv-shims<=1.27' )
             ;;
         nosh-bsd-shims)
             pkgdesc="BSD shim service and system management utilities"
@@ -482,14 +482,14 @@ _package() {
         nosh-run-local-syslog)
             pkgdesc="Run the local syslog service"
             depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.33' 'nosh-bundles' )
-            #conflicts+=( 'systemd' )
+            conflicts+=( 'systemd-sysvcompat' )
             install="nosh-run-local-syslog.install"
             backup=( 'usr/share/system-control/presets/80-enable-local-syslog.preset' )
             ;;
         nosh-run-klog)
             pkgdesc="Run the klog service"
             depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.33' 'nosh-bundles' )
-            #conflicts+=( 'systemd' )
+            conflicts+=( 'systemd-sysvcompat' )
             install="nosh-run-klog.install"
             backup=( 'usr/share/system-control/presets/80-enable-klog.preset' )
             ;;
