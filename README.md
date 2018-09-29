@@ -50,12 +50,12 @@ You can then install the generated packages with:
 
     # pacman -U <package-name>
 
-N.B.: due to a change in dbus-daemon behaviour and since nosh-1.37, the `nosh-service-management` package needs to override the `dbus-daemon-launch-helper` binary from the `core/dbus` Archlinux package with its own. While the Debian package uses the `dpkg-divert` mechanism, no similar method appears to exist on Arch (suggestions welcome).
+N.B.: due to a change in dbus-daemon behaviour and since nosh-1.37, `nosh-desktop-bus-shims` needs to override the `dbus-daemon-launch-helper` binary from the `core/dbus` Archlinux package with its own. While the Debian package uses the `dpkg-divert` mechanism, no similar method appears to exist on Arch (suggestions welcome).
 
 The Archnosh package currently overwrites `/usr/lib/dbus-1.0/dbus-daemon-launch-helper`. This has two consequences:
 
-* one must use the `--force` option when installing with pacman to avoid a file collision error
-* `nosh-service-management` now competes with `core/dbus` and must be reinstalled when the latter is updated.
+* one must use the `--overwrite=usr/lib/dbus-1.0/dbus-daemon-launch-helper` option when installing with pacman to avoid a file collision error
+* `nosh-desktop-bus-shims` now competes with `core/dbus` and must be reinstalled when the latter is updated.
 
 
 ### Running nosh
@@ -143,7 +143,7 @@ We will detail the installation of [eudev](https://aur.archlinux.org/packages/eu
 
     This conflicts with the libsystemd package, you should remove it but it will almost certainly be a dependency for other packages on your system so run:
 
-        # pacman -dd -S libeudev
+        # pacman -d -d -S libeudev
 
     The `-d` (or `--nodeps`) repeated option skips dependency checking. You will be providing replacements for these dependencies.
 
@@ -157,7 +157,7 @@ We will detail the installation of [eudev](https://aur.archlinux.org/packages/eu
 
     This conflicts with the systemd package and, again, will doubtless bring up many dependency warnings so run:
     
-        # pacman -dd -S eudev
+        # pacman -d -d -S eudev
 
 4. Install eudev-systemd
 
@@ -371,7 +371,7 @@ It provides high-level system-wide and per-user service management (start/stop, 
 
 It also understands extended syntax to express service bundle-specific functionality in a systemd-like unit file, which can be used for easy distribution for example.
 
-In other words, one can benefit from existing systemd unit files through automatic conversion in many cases.
+In other words, one can benefit from existing systemd unit files through automatic conversion in most cases.
 
 
 ## Automation
