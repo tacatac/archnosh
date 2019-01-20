@@ -15,8 +15,10 @@ pkgname=(
     'nosh-upstart-shims'
     'nosh-execline-shims'
     'nosh-core-shims'
+    'nosh-linux-shims'
     'nosh-service-command-shim'
     'nosh-debian-shims'
+    'nosh-openrc-shims'
     'nosh-openbsd-shims'
     'nosh-freebsd-shims'
     'nosh-bsd-shims'
@@ -276,6 +278,11 @@ _package() {
             depends+=( 'nosh-common' 'nosh-exec' )
             #conflicts+=( 'coreutils' 'util-linux' ) # conflict not set, to allow selective pacman --overwrite
             ;;
+        nosh-linux-shims)
+            pkgdesc="Linux utility shims"
+            depends+=( 'nosh-common' 'nosh-exec' 'nosh-terminal-management' )
+            #conflicts+=( 'coreutils' 'util-linux' ) # conflict not set, to allow selective pacman --overwrite
+            ;;
         nosh-service-command-shim)
             pkgdesc="Shim for the old BSD and System 5 service command"
             depends+=( 'nosh-common' 'nosh-service-management' 'nosh-systemv-shims' )
@@ -283,8 +290,13 @@ _package() {
             ;;
         nosh-debian-shims)
             pkgdesc="Debian shim service and system management utilities"
-            depends+=( 'nosh-common' 'nosh-service-management' )
+            depends+=( 'nosh-common' 'nosh-service-management' 'nosh-service-command-shim' 'nosh-systemv-shims' )
             conflicts+=( 'upstart' 'sysvinit' 'systemd' )
+            ;;
+        nosh-openrc-shims)
+            pkgdesc="OpenRC shim service and system management utilities"
+            depends+=( 'nosh-common' 'nosh-service-management' 'nosh-systemv-shims' )
+            conflicts+=( 'openrc' 'upstart' 'sysvinit' 'systemd' )
             ;;
         nosh-openbsd-shims)
             pkgdesc="OpenBSD shim service and system management utilities"
