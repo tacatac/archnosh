@@ -1,3 +1,7 @@
+1.39-1
+* added nosh-linux-shims and nosh-openrc-shims packages
+* updated documentation for user bundles conversion and user-space virtual terminals
+
 1.38-1
 * nosh-desktop-bus-shims is now the package that overrides core/dbus
 * documentation mentions new pacman `--overwrite` option
