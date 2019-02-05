@@ -1,0 +1,26 @@
+diff --git a/source/convert/dbus-services.do b/source/convert/dbus-services.do
+index ea6ce13..4d7f42c 100755
+--- a/source/convert/dbus-services.do
++++ b/source/convert/dbus-services.do
+@@ -89,7 +89,7 @@ do
+ 	org.freedesktop.import[0-9]*)	continue ;;	# blacklisted
+ 	org.freedesktop.machine[0-9]*)	continue ;;	# blacklisted
+ 	org.freedesktop.portable[0-9]*)	continue ;;	# blacklisted
+-	org.freedesktop.timesnc[0-9]*)	continue ;;	# blacklisted
++	org.freedesktop.timesync[0-9]*)	continue ;;	# blacklisted
+ 	esac
+ 	redo-ifchange -- "dbus/$i.service"
+ 	printf "dbus/%s\n" "$i" >> "$3"
+diff --git a/source/convert/user-services.do b/source/convert/user-services.do
+index 75078c2..981acbc 100755
+--- a/source/convert/user-services.do
++++ b/source/convert/user-services.do
+@@ -30,7 +30,7 @@ esac
+ redo-ifchange "user-dbus-daemon@.socket" "user-dbus-daemon.service" "user-dbus-broker@.socket" "user-dbus-broker.service" "user-dbus-log@.service" "user-services.service" "user-services@.socket" "user-runtime@.service" "run-user-directory@.service" "user@.target" "per-user/exit.target" "per-user/per-user.conf" "per-user/all.do" "per-user/default.do" "per-user/home.do" "per-user/user.do" "per-user/config-path.do" "per-user/services.do"
+ 
+ getent passwd |
+-awk -F : '{ if (!match($7,"/nologin$")) print $1; }' |
++    awk -F : '{ if (!match($7,"/nologin$") && !match($7,"/false$")) print $1; }' |
+ while read -r i
+ do
+ 	# On systems that don't set nologin as the shell, there is nothing distinguishing "system" accounts from accounts that temporarily have their password disabled.

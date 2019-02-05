@@ -51,7 +51,7 @@ pkgname=(
     'nosh-run-bcron'
     )               
 pkgver=1.39
-pkgrel=1
+pkgrel=2
 pkgdesc="A suite of system-level utilities for initializing and running a BSD or Linux system, for managing daemons, for managing terminals, and for managing logging."
 arch=('x86_64')
 url="https://jdebp.eu/Softwares/nosh/index.html"
@@ -103,6 +103,7 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         "staging.patch"
         "maintenance-scripts.patch"
         "scriptletbuilder.sh"
+        "misc-1.39.patch"
         "README.md"
         
         "nosh-bundles.install"
@@ -132,6 +133,7 @@ sha256sums=(
             '21f94e9eb2ddb4f3e1590177f62385b30a263fc43281b5d4cace38abb7723bb5' # staging.patch
             '1713514f1e702b1fa663a84108c37d2cd28f70e1eea31e4c4ffb7d5ff940fa03' # maintenance-scripts.patch
             '907d92546845ab087be38515fcbd04bec68b68a250534063695e73646241454c' # scriptletbuilder.sh
+            '6262acc51f648b3c43ec65223e4968c513d49fd4b4b24bf0d728c468aa26385c' # misc-1.39.patch
             'SKIP' # README.md
             
             'SKIP' # nosh-bundles.install
@@ -176,6 +178,11 @@ prepare() {
     sed -i 's@usr/local/lib@usr/lib@g' nosh-run-via-systemd.post_install.extra nosh-run-via-systemd.post_upgrade.extra
     cd "${srcdir}"
     patch -p1 -i "${srcdir}"/maintenance-scripts.patch
+
+    # patch 1.39 issues
+    msg2 "Fix some 1.39 issues (typo and missing user shell check)"
+    cd "${srcdir}"
+    patch -p1 -i "${srcdir}"/misc-1.39.patch
 }
 
 build() {
