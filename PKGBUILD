@@ -321,7 +321,6 @@ _package() {
         nosh-kbd-shims)
             pkgdesc="Shim kbd utilities"
             depends+=( 'nosh-common' 'nosh-terminal-management' )
-            conflicts+=( 'kbd')
             ;;
         #nosh-logrotate-shims)
         #    pkgdesc="Shim for the logrotate package"
