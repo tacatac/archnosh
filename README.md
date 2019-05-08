@@ -57,6 +57,27 @@ The Archnosh package currently overwrites `/usr/lib/dbus-1.0/dbus-daemon-launch-
 * one must use the `--overwrite=usr/lib/dbus-1.0/dbus-daemon-launch-helper` option when installing with pacman to avoid a file collision error
 * `nosh-desktop-bus-shims` now competes with `core/dbus` and must be reinstalled when the latter is updated.
 
+In fact several nosh packages have files that may conflict with existing Archlinux packages. In some cases the packages are set to conflict in the `PKGBUILD` if nosh provides a complete replacement. In others, where nosh offers partial replacements such as for `core/dbus` above, the packages will not conflict and the [--overwrite option](https://www.archlinux.org/pacman/pacman.8.html#_upgrade_options_apply_to_em_s_em_and_em_u_em_a_id_uo_a) may be used to install them.
+
+For example:
+
+    # pacman -U nosh-core-shims-1.40-1-x86_64.pkg.tar.xz
+    (...)
+    error: failed to commit transaction (conflicting files)
+    nosh-core-shims: /usr/bin/chroot exists in filesystem (owned by coreutils)
+    nosh-core-shims: /usr/bin/false exists in filesystem (owned by coreutils)
+    nosh-core-shims: /usr/bin/printenv exists in filesystem (owned by coreutils)
+    nosh-core-shims: /usr/bin/true exists in filesystem (owned by coreutils)
+    nosh-core-shims: /usr/share/man/man1/chroot.1.gz exists in filesystem (owned by coreutils)
+    nosh-core-shims: /usr/share/man/man1/false.1.gz exists in filesystem (owned by coreutils)
+    nosh-core-shims: /usr/share/man/man1/printenv.1.gz exists in filesystem (owned by coreutils)
+    nosh-core-shims: /usr/share/man/man1/true.1.gz exists in filesystem (owned by coreutils)
+    Errors occurred, no packages were upgraded.
+
+    # pacman -U nosh-core-shims-1.40-1-x86_64.pkg.tar.xz --overwrite="*"
+
+Of course, each install using `--overwrite` competes with its corresponding package and upgrades will have to be tracked somehow, to make sure the correct files are in use.
+
 
 ### Running nosh
 
@@ -118,6 +139,8 @@ For a fully nosh-managed system, i.e. nosh running as the init process and servi
 * nosh-run-debian-server-base or nosh-run-debian-desktop-base
 * nosh-run-local-syslog
 * nosh-run-klogd
+
+Note that `nosh-run-system-manager` conflicts with `systemd-sysvcompat` which should be removed.
 
 Installing these packages will raise a lot of the following errors:
 
