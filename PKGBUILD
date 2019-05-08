@@ -50,7 +50,7 @@ pkgname=(
     'nosh-run-klog'
     'nosh-run-bcron'
     )               
-pkgver=1.39
+pkgver=1.40
 pkgrel=1
 pkgdesc="A suite of system-level utilities for initializing and running a BSD or Linux system, for managing daemons, for managing terminals, and for managing logging."
 arch=('x86_64')
@@ -128,7 +128,7 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         )
 noextract=()
 sha256sums=(
-            'df3bcf09f6f038844c51812390762c2806a22434ce641a68a89b774edee3ac03' # nosh-1.39.tar.gz
+            '263982c4ba2889f823f9d4be6ac2daafd1af5b341f9e02f2ed7b28b0788e02c3' # nosh-1.40.tar.gz
             '21f94e9eb2ddb4f3e1590177f62385b30a263fc43281b5d4cace38abb7723bb5' # staging.patch
             '1713514f1e702b1fa663a84108c37d2cd28f70e1eea31e4c4ffb7d5ff940fa03' # maintenance-scripts.patch
             '907d92546845ab087be38515fcbd04bec68b68a250534063695e73646241454c' # scriptletbuilder.sh
