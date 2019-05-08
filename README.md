@@ -22,7 +22,7 @@ Use the latest available released archive, i.e. the latest tagged git commit.
 
 This README applies to the latest release.
 
-Note that preset files will be handled as [config files](http://jlk.fjfi.cvut.cz/arch/manpages/man/pacman.8#HANDLING_CONFIG_FILES).
+Note that preset files will be handled as [config files](https://www.archlinux.org/pacman/pacman.8.html#_handling_config_files_a_id_hcf_a).
 
 Service bundles, however, are a form of configuration via the filesystem and are less amenable to pacman's config file mechanism. Saving the run files under the `service` directory would reflect this configuration only partially. Currently therefore, in order to preserve customization through package upgrades, you should patch the systemd-like service files from which the bundles are generated.
 
