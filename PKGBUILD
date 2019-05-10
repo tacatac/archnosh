@@ -103,6 +103,7 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         "staging.patch"
         "maintenance-scripts.patch"
         "scriptletbuilder.sh"
+        "ncftpbatch.patch"
         "README.md"
         
         "nosh-bundles.install"
@@ -132,6 +133,7 @@ sha256sums=(
             '21f94e9eb2ddb4f3e1590177f62385b30a263fc43281b5d4cace38abb7723bb5' # staging.patch
             '1713514f1e702b1fa663a84108c37d2cd28f70e1eea31e4c4ffb7d5ff940fa03' # maintenance-scripts.patch
             '907d92546845ab087be38515fcbd04bec68b68a250534063695e73646241454c' # scriptletbuilder.sh
+            'e7abf231c26c461c3a728b08acc01f05823132fafce8015e196fdff47426ccbf' # ncftpbatch.patch
             'SKIP' # README.md
             
             'SKIP' # nosh-bundles.install
@@ -176,6 +178,11 @@ prepare() {
     sed -i 's@usr/local/lib@usr/lib@g' nosh-run-via-systemd.post_install.extra nosh-run-via-systemd.post_upgrade.extra
     cd "${srcdir}"
     patch -p1 -i "${srcdir}"/maintenance-scripts.patch
+
+    # patch conversion-tools list
+    msg2 "Fix missing per-user ncftpbatch.service"
+    cd "${srcdir}"
+    patch -p1 -i "${srcdir}"/ncftpbatch.patch
 }
 
 build() {
