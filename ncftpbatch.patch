@@ -1,0 +1,12 @@
+diff --git a/package/conversion-tools b/package/conversion-tools
+index 53c54a6..8cffccc 100644
+--- a/package/conversion-tools
++++ b/package/conversion-tools
+@@ -132,6 +132,7 @@ per-user/mate-screensaver.service
+ per-user/mpd.conf
+ per-user/mpd.service
+ per-user/mpd.socket
++per-user/ncftpbatch.service
+ per-user/notification-area-applet.service
+ per-user/obex.service
+ per-user/per-user.conf
