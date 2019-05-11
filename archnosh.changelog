@@ -1,3 +1,7 @@
+1.40-2
+* update PKGBUILD with missing packages: nosh-net-tools-shims, nosh-run-via-open-rc, nosh-run-mdevd
+* remove nosh-service-management install script
+
 1.40-1
 * add missing ncftpbatch per-user service as a patch
 
