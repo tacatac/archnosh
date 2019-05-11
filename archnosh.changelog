@@ -1,3 +1,6 @@
+1.40-1
+* add missing ncftpbatch per-user service as a patch
+
 1.39-1
 * added nosh-linux-shims and nosh-openrc-shims packages
 * updated documentation for user bundles conversion and user-space virtual terminals
