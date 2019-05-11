@@ -24,6 +24,7 @@ pkgname=(
     'nosh-bsd-shims'
     'nosh-ucspi-tcp-shims'
     'nosh-kbd-shims'
+    'nosh-net-tools-shims'
      #'nosh-logrotate-shims'
     'nosh-bcron-as-cron-shims'
     'nosh-desktop-bus-shims'
@@ -35,6 +36,7 @@ pkgname=(
     'nosh-run-debian-server-base'
     'nosh-run-kernel-vt'
     'nosh-run-user-vt'
+    'nosh-run-via-open-rc'
     'nosh-run-via-systemd'
     'nosh-run-virtualbox-guest'
     'nosh-run-freedesktop-system-bus'
@@ -46,12 +48,13 @@ pkgname=(
     'nosh-run-busybox-mdev'
     'nosh-run-suckless-mdev'
     'nosh-run-vdev'
+    'nosh-run-mdevd'
     'nosh-run-local-syslog'
     'nosh-run-klog'
     'nosh-run-bcron'
     )               
 pkgver=1.40
-pkgrel=1
+pkgrel=2
 pkgdesc="A suite of system-level utilities for initializing and running a BSD or Linux system, for managing daemons, for managing terminals, and for managing logging."
 arch=('x86_64')
 url="https://jdebp.eu/Softwares/nosh/index.html"
@@ -88,6 +91,7 @@ _pkginstalls=(
         "nosh-run-system-manager"
         "nosh-run-udev"
         "nosh-run-user-vt"
+        "nosh-run-via-open-rc"
         "nosh-run-via-systemd"
         "nosh-run-virtualbox-guest"
         "nosh-service-management"
@@ -124,8 +128,8 @@ source=("https://jdebp.eu/Repository/freebsd/nosh-$pkgver.tar.gz"
         "nosh-run-udev.install"
         "nosh-run-user-vt.install"
         "nosh-run-via-systemd.install"
+        "nosh-run-via-open-rc.install"
         "nosh-run-virtualbox-guest.install"
-        "nosh-service-management.install"
         )
 noextract=()
 sha256sums=(
@@ -154,8 +158,8 @@ sha256sums=(
             'SKIP' # nosh-run-udev.install
             'SKIP' # nosh-run-user-vt.install
             'SKIP' # nosh-run-via-systemd.install
+            'SKIP' # nosh-run-via-open-rc.install
             'SKIP' # nosh-run-virtualbox-guest.install
-            'SKIP' # nosh-service-management.install
             )
 validpgpkeys=()
 
@@ -329,6 +333,10 @@ _package() {
             pkgdesc="Shim kbd utilities"
             depends+=( 'nosh-common' 'nosh-terminal-management' )
             ;;
+        nosh-net-tools-shims)
+            pkgdesc="Linux utility shims"
+            depends+=( 'nosh-common' 'nosh-exec' )
+            ;;
         #nosh-logrotate-shims)
         #    pkgdesc="Shim for the logrotate package"
         #    depends+=( 'nosh-common' 'nosh-bundles' )
@@ -344,7 +352,7 @@ _package() {
             ;;
         nosh-bundles)
             pkgdesc="Service bundles"
-            depends+=( 'nosh-common' 'nosh-service-management>=1.38' 'nosh-exec>=1.38' 'nosh-terminal-management>=1.22' 'shadow' )
+            depends+=( 'nosh-common' 'nosh-service-management>=1.39' 'nosh-exec>=1.39' 'nosh-terminal-management>=1.39' 'shadow' )
             install="nosh-bundles.install"
             ;;
         nosh-debian-crontab-no-anacron)
@@ -396,15 +404,19 @@ _package() {
             ;;
         nosh-run-user-vt)
             pkgdesc="Run new-style application-mode virtual terminals"
-            depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.33' 'nosh-terminal-management' 'nosh-bundles' )
+            depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.33' 'nosh-terminal-management' 'nosh-bundles>=1.37' )
             install="nosh-run-user-vt.install"
             backup=( 'usr/share/system-control/presets/80-enable-user-vt.preset'
                      'usr/share/system-control/presets/80-linux-ttylogin-vc.preset'
                      )
             ;;
+        nosh-run-via-open-rc)
+            pkgdesc="Run the nosh service manager and daemontools service scanner via OpenRC"
+            depends+=( 'nosh-common' 'nosh-service-management>=1.33' 'systemd' 'nosh-bundles>=1.40' )
+            ;;
         nosh-run-via-systemd)
             pkgdesc="Run the nosh service manager and daemontools service scanner via systemd"
-            depends+=( 'nosh-common' 'nosh-service-management>=1.33' 'systemd' 'nosh-bundles' )
+            depends+=( 'nosh-common' 'nosh-service-management>=1.33' 'systemd' 'nosh-bundles>=1.40' )
             install="nosh-run-via-systemd.install"
             backup=( 'usr/share/system-control/presets/80-disable-sysinit.preset'
                      'usr/share/system-control/presets/80-disable-dbus.preset'
@@ -491,11 +503,15 @@ _package() {
             ;;
         nosh-run-vdev)
             pkgdesc="Run vdev as the device manager"
-            depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management' 'nosh-bundles' 'vdev-git')
+            depends+=( 'nosh-common' 'nosh-exec' 'nosh-service-management>=1.33' 'nosh-bundles' 'vdev-git')
             conflicts+=('nosh-run-busybox-mdev' 'nosh-run-suckless-mdev' 'nosh-run-udev' 'nosh-run-systemd-udev')
             # no run script so far
             # install="nosh-run-vdev.install"
             backup=( 'usr/share/system-control/presets/80-enable-vdev.preset' )
+            ;;
+        nosh-run-mdevd)
+            pkgdesc="Run Laurent Bercot's mdevd as the device manager"
+            depends+=( 'nosh-common' 'nosh-service-management>=1.33' 'nosh-bundles' )
             ;;
         nosh-run-local-syslog)
             pkgdesc="Run the local syslog service"

@@ -1,7 +1,7 @@
 pkgbase = nosh
 	pkgdesc = A suite of system-level utilities for initializing and running a BSD or Linux system, for managing daemons, for managing terminals, and for managing logging.
 	pkgver = 1.40
-	pkgrel = 1
+	pkgrel = 2
 	url = https://jdebp.eu/Softwares/nosh/index.html
 	changelog = archnosh.changelog
 	arch = x86_64
@@ -38,8 +38,8 @@ pkgbase = nosh
 	source = nosh-run-udev.install
 	source = nosh-run-user-vt.install
 	source = nosh-run-via-systemd.install
+	source = nosh-run-via-open-rc.install
 	source = nosh-run-virtualbox-guest.install
-	source = nosh-service-management.install
 	sha256sums = 263982c4ba2889f823f9d4be6ac2daafd1af5b341f9e02f2ed7b28b0788e02c3
 	sha256sums = 21f94e9eb2ddb4f3e1590177f62385b30a263fc43281b5d4cace38abb7723bb5
 	sha256sums = 1713514f1e702b1fa663a84108c37d2cd28f70e1eea31e4c4ffb7d5ff940fa03
@@ -111,6 +111,8 @@ pkgname = nosh-ucspi-tcp-shims
 
 pkgname = nosh-kbd-shims
 
+pkgname = nosh-net-tools-shims
+
 pkgname = nosh-bcron-as-cron-shims
 
 pkgname = nosh-desktop-bus-shims
@@ -130,6 +132,8 @@ pkgname = nosh-run-debian-server-base
 pkgname = nosh-run-kernel-vt
 
 pkgname = nosh-run-user-vt
+
+pkgname = nosh-run-via-open-rc
 
 pkgname = nosh-run-via-systemd
 
@@ -152,6 +156,8 @@ pkgname = nosh-run-busybox-mdev
 pkgname = nosh-run-suckless-mdev
 
 pkgname = nosh-run-vdev
+
+pkgname = nosh-run-mdevd
 
 pkgname = nosh-run-local-syslog
 
