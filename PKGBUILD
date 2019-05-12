@@ -94,7 +94,6 @@ _pkginstalls=(
         "nosh-run-via-open-rc"
         "nosh-run-via-systemd"
         "nosh-run-virtualbox-guest"
-        "nosh-service-management"
         )
         
 # no point in distributing empty files, create them now, they are filled in later
