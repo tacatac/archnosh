@@ -504,6 +504,7 @@ _package() {
         nosh-run-mdevd)
             pkgdesc="Run Laurent Bercot's mdevd as the device manager"
             depends+=( 'nosh-common' 'nosh-service-management>=1.33' 'nosh-bundles' )
+            backup=( 'usr/share/system-control/presets/80-enable-mdevd.preset' )
             ;;
         nosh-run-local-syslog)
             pkgdesc="Run the local syslog service"
