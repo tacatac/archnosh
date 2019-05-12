@@ -1,3 +1,6 @@
+1.40-3
+* fix missing nosh-run-mdevd preset
+
 1.40-2
 * update PKGBUILD with missing packages: nosh-net-tools-shims, nosh-run-via-open-rc, nosh-run-mdevd
 * remove nosh-service-management install script

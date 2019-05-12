@@ -54,7 +54,7 @@ pkgname=(
     'nosh-run-bcron'
     )               
 pkgver=1.40
-pkgrel=2
+pkgrel=3
 pkgdesc="A suite of system-level utilities for initializing and running a BSD or Linux system, for managing daemons, for managing terminals, and for managing logging."
 arch=('x86_64')
 url="https://jdebp.eu/Softwares/nosh/index.html"
@@ -516,6 +516,7 @@ _package() {
         nosh-run-mdevd)
             pkgdesc="Run Laurent Bercot's mdevd as the device manager"
             depends+=( 'nosh-common' 'nosh-service-management>=1.33' 'nosh-bundles' )
+            backup=( 'usr/share/system-control/presets/80-enable-mdevd.preset' )
             ;;
         nosh-run-local-syslog)
             pkgdesc="Run the local syslog service"
