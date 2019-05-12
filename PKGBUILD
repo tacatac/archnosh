@@ -187,6 +187,11 @@ prepare() {
     msg2 "Fix missing per-user ncftpbatch.service"
     cd "${srcdir}"
     patch -p1 -i "${srcdir}"/ncftpbatch.patch
+
+    # rename nosh-run-mdevd-presets file
+    msg2 "rename nosh-run-mdevd-presets file"
+    cd "${srcdir}"/package
+    mv -v nosh-run-mdevd-presets linux-nosh-run-mdevd-presets
 }
 
 build() {
