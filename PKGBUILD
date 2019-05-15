@@ -236,7 +236,6 @@ _package() {
             pkgdesc="Service and system management utilities"
             depends+=( 'nosh-common' 'glibc>=2.13')
             conflicts+=( 'nosh-bundles<=1.30' 'daemontools' 'daemontools-encore' )
-            install="nosh-service-management.install"
             ;;
         nosh-service-management-extras)
             pkgdesc="Extra service and system management utilities"
@@ -405,6 +404,7 @@ _package() {
         nosh-run-via-open-rc)
             pkgdesc="Run the nosh service manager and daemontools service scanner via OpenRC"
             depends+=( 'nosh-common' 'nosh-service-management>=1.33' 'systemd' 'nosh-bundles>=1.40' )
+            install="nosh-run-via-open-rc.install"
             ;;
         nosh-run-via-systemd)
             pkgdesc="Run the nosh service manager and daemontools service scanner via systemd"
