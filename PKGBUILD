@@ -54,7 +54,7 @@ pkgname=(
     'nosh-run-bcron'
     )               
 pkgver=1.40
-pkgrel=3
+pkgrel=4
 pkgdesc="A suite of system-level utilities for initializing and running a BSD or Linux system, for managing daemons, for managing terminals, and for managing logging."
 arch=('x86_64')
 url="https://jdebp.eu/Softwares/nosh/index.html"
