@@ -231,8 +231,6 @@ A `dhcpcd@` service (the [default enabled tool](https://wiki.archlinux.org/index
 
 It should be enabled automatically (on interfaces configured with dhcp of course). The discovery script will detect [dhclient](https://www.isc.org/downloads/dhcp/), [udhcpc](https://udhcp.busybox.net/) and [dhcpcd](https://roy.marples.name/projects/dhcpcd). You can manually set your client in `/etc/rc.conf` or `/etc/rc.conf.local` with the `dhclient_program` variable.
 
-For interfaces managed by `ifconfig@` scripts, the [net-tools](https://www.archlinux.org/packages/core/x86_64/net-tools/) package needs to be installed to provide the `ifconfig` binary.
-
 Don't forget to run `redo all` after applying configuration changes. Check `/etc/system-control/convert/static-networking` to make sure the desired services for your interface are set to `on`.
 
 
